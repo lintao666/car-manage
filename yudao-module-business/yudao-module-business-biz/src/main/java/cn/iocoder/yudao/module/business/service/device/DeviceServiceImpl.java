@@ -29,6 +29,8 @@ public class DeviceServiceImpl implements DeviceService {
     @Resource
     private DeviceMapper deviceMapper;
 
+
+
     @Override
     public Long createDevice(DeviceSaveReqVO createReqVO) {
         // 插入
@@ -69,6 +71,11 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public PageResult<DeviceDO> getDevicePage(DevicePageReqVO pageReqVO) {
         return deviceMapper.selectPage(pageReqVO);
+    }
+
+    @Override
+    public List<DeviceDO> getDeviceList(Collection<Long> ids, Collection<Integer> statuses) {
+        return deviceMapper.selectList(ids, statuses);
     }
 
 }

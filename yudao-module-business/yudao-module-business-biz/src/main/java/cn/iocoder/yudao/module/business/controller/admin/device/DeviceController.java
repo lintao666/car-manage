@@ -1,5 +1,8 @@
 package cn.iocoder.yudao.module.business.controller.admin.device;
 
+import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
+import cn.iocoder.yudao.module.business.controller.admin.driver.vo.IdNameVO;
+import cn.iocoder.yudao.module.business.dal.dataobject.driver.DriverDO;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -92,4 +95,13 @@ public class DeviceController {
                         BeanUtils.toBean(list, DeviceRespVO.class));
     }
 
+    @GetMapping("/list-all-simple")
+    @Operation(summary = "获取设备全列表", description = "只包含被开启的设备，主要用于前端的下拉选项")
+    public CommonResult<List<IdNameVO>> getSimplePostList() {
+        // 获得岗位列表，只要开启状态的
+        List<DeviceDO> list = deviceService.getDeviceList(null, Collections.singleton(CommonStatusEnum.ENABLE.getStatus()));
+        // 排序后，返回给前端
+//        list.sort(Comparator.comparing(DriverDO::getSort));
+        return success(BeanUtils.toBean(list, IdNameVO.class));
+    }
 }

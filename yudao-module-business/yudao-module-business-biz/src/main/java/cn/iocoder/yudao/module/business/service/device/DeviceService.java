@@ -6,6 +6,7 @@ import cn.iocoder.yudao.module.business.controller.admin.device.vo.*;
 import cn.iocoder.yudao.module.business.dal.dataobject.device.DeviceDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
+import org.springframework.lang.Nullable;
 
 /**
  * 设备 Service 接口
@@ -52,4 +53,11 @@ public interface DeviceService {
      */
     PageResult<DeviceDO> getDevicePage(DevicePageReqVO pageReqVO);
 
+    /**
+     * 获得符合条件的设备列表
+     * @param ids 编号数组。如果为空，不进行筛选
+     * @param statuses 状态数组。如果为空，不进行筛选
+     * @return 设备列表
+     */
+    List<DeviceDO> getDeviceList(@Nullable Collection<Long> ids, @Nullable Collection<Integer> statuses);
 }
