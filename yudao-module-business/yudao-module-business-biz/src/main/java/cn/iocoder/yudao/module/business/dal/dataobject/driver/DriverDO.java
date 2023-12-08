@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.business.dal.dataobject.driver;
 
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.*;
 import java.util.*;
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
  *
  * @author 芋道源码
  */
-@TableName("business_driver")
+@TableName(value = "business_driver",autoResultMap = true)
 @KeySequence("business_driver_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -80,7 +81,8 @@ public class DriverDO extends BaseDO {
     /**
      * 附件（多张图片）
      */
-    private String attachment;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<String> attachment;
     /**
      * 状态
      *

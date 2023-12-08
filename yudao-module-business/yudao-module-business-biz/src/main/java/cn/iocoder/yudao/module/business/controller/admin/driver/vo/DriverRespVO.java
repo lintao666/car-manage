@@ -69,7 +69,7 @@ public class DriverRespVO {
 
     @Schema(description = "附件（多张图片）", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("附件（多张图片）")
-    private String attachment;
+    private List<String> attachment;
 
     @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "2")
     @ExcelProperty(value = "状态", converter = DictConvert.class)

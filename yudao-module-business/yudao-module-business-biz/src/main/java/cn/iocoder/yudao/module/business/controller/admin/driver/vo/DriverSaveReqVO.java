@@ -57,7 +57,7 @@ public class DriverSaveReqVO {
 
     @Schema(description = "附件（多张图片）", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "附件（多张图片）不能为空")
-    private String attachment;
+    private List<String> attachment;
 
     @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "2")
     @NotNull(message = "状态不能为空")
