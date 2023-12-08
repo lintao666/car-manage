@@ -17,6 +17,12 @@ import cn.iocoder.yudao.module.business.controller.admin.driver.vo.*;
 @Mapper
 public interface DriverMapper extends BaseMapperX<DriverDO> {
 
+    default List<DriverDO> selectList(Collection<Long> ids, Collection<Integer> statuses) {
+        return selectList(new LambdaQueryWrapperX<DriverDO>()
+                .inIfPresent(DriverDO::getId, ids)
+                .inIfPresent(DriverDO::getStatus, statuses));
+    }
+
     default PageResult<DriverDO> selectPage(DriverPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<DriverDO>()
                 .eqIfPresent(DriverDO::getCompanyId, reqVO.getCompanyId())

@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.business.controller.admin.driver;
 
+import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -90,6 +91,16 @@ public class DriverController {
         // 导出 Excel
         ExcelUtils.write(response, "司机.xls", "数据", DriverRespVO.class,
                         BeanUtils.toBean(list, DriverRespVO.class));
+    }
+
+    @GetMapping("/list-all-simple")
+    @Operation(summary = "获取司机全列表", description = "只包含被开启的司机，主要用于前端的下拉选项")
+    public CommonResult<List<IdNameVO>> getSimplePostList() {
+        // 获得岗位列表，只要开启状态的
+        List<DriverDO> list = driverService.getDriverList(null, Collections.singleton(CommonStatusEnum.ENABLE.getStatus()));
+        // 排序后，返回给前端
+//        list.sort(Comparator.comparing(DriverDO::getSort));
+        return success(BeanUtils.toBean(list, IdNameVO.class));
     }
 
 }

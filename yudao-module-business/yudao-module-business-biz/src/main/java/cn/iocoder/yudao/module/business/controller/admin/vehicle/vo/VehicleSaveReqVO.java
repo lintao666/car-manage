@@ -47,11 +47,11 @@ public class VehicleSaveReqVO {
 
     @Schema(description = "设备列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "设备列表不能为空")
-    private String deviceIdList;
+    private List<String> deviceIdList;
 
     @Schema(description = "司机列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "司机列表不能为空")
-    private String driverIdList;
+    private List<String> driverIdList;
 
     @Schema(description = "当前状态（非ACC状态）", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "当前状态（非ACC状态）不能为空")

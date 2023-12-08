@@ -6,6 +6,7 @@ import cn.iocoder.yudao.module.business.controller.admin.driver.vo.*;
 import cn.iocoder.yudao.module.business.dal.dataobject.driver.DriverDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
+import org.springframework.lang.Nullable;
 
 /**
  * 司机 Service 接口
@@ -51,5 +52,15 @@ public interface DriverService {
      * @return 司机分页
      */
     PageResult<DriverDO> getDriverPage(DriverPageReqVO pageReqVO);
+
+    /**
+     * 获得符合条件的司机列表
+     * @param ids 司机编号数组。如果为空，不进行筛选
+     * @param statuses 状态数组。如果为空，不进行筛选
+     * @return 司机列表
+     */
+    List<DriverDO> getDriverList(@Nullable Collection<Long> ids, @Nullable Collection<Integer> statuses);
+
+
 
 }

@@ -71,4 +71,9 @@ public class DriverServiceImpl implements DriverService {
         return driverMapper.selectPage(pageReqVO);
     }
 
+    @Override
+    public List<DriverDO> getDriverList(Collection<Long> ids, Collection<Integer> statuses) {
+        return driverMapper.selectList(ids, statuses);
+    }
+
 }
