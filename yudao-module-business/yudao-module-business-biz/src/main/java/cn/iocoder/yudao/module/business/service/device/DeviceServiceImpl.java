@@ -33,6 +33,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public Long createDevice(DeviceSaveReqVO createReqVO) {
+        //todo 校验 设备绑定的车牌 OBD类设备只可添加没有绑定OBD类设备的车牌，2类可以添加所有车牌，可以为空
         // 插入
         DeviceDO device = BeanUtils.toBean(createReqVO, DeviceDO.class);
         deviceMapper.insert(device);

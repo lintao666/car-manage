@@ -15,6 +15,7 @@ public class DeviceSaveReqVO {
 
     @Schema(description = "设备ID", requiredMode = Schema.RequiredMode.REQUIRED, example = "aa3128612222")
     @NotEmpty(message = "设备ID不能为空")
+    @Pattern(regexp = "^[a-zA-Z0-9]{12}$",message = "设备ID只能为12位英文+数字的组合")
     private String deviceId;
 
     @Schema(description = "设备类型", requiredMode = Schema.RequiredMode.REQUIRED, example = "1447")
