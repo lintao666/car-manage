@@ -1,21 +1,22 @@
 package cn.iocoder.yudao.module.business.service.device;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
-import cn.iocoder.yudao.module.business.controller.admin.device.vo.*;
-import cn.iocoder.yudao.module.business.dal.dataobject.device.DeviceDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
-
+import cn.iocoder.yudao.module.business.controller.admin.device.vo.DevicePageReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSaveReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.driver.vo.IdNameVO;
+import cn.iocoder.yudao.module.business.dal.dataobject.device.DeviceDO;
 import cn.iocoder.yudao.module.business.dal.mysql.device.DeviceMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.iocoder.yudao.module.business.enums.ErrorCodeConstants.*;
+import static cn.iocoder.yudao.module.business.enums.ErrorCodeConstants.DEVICE_NOT_EXISTS;
 
 /**
  * 设备 Service 实现类
@@ -28,7 +29,6 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Resource
     private DeviceMapper deviceMapper;
-
 
 
     @Override
@@ -77,6 +77,12 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public List<DeviceDO> getDeviceList(Collection<Long> ids, Collection<Integer> statuses) {
         return deviceMapper.selectList(ids, statuses);
+    }
+
+    @Override
+    public List<IdNameVO> getSimpleList(Collection<Long> ids, Collection<Integer> statuses) {
+        List<DeviceDO> deviceList = getDeviceList(ids, statuses);
+        return deviceList.stream().map(item -> new IdNameVO(item.getId(), item.getDeviceId())).collect(Collectors.toList());
     }
 
 }

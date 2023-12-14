@@ -1,36 +1,34 @@
 package cn.iocoder.yudao.module.business.controller.admin.device;
 
 import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
-import cn.iocoder.yudao.module.business.controller.admin.driver.vo.IdNameVO;
-import cn.iocoder.yudao.module.business.dal.dataobject.driver.DriverDO;
-import org.springframework.web.bind.annotation.*;
-import javax.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.security.access.prepost.PreAuthorize;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Operation;
-
-import javax.validation.constraints.*;
-import javax.validation.*;
-import javax.servlet.http.*;
-import java.util.*;
-import java.io.IOException;
-
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
-import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
-
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
-
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
-import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*;
-
-import cn.iocoder.yudao.module.business.controller.admin.device.vo.*;
+import cn.iocoder.yudao.module.business.controller.admin.device.vo.DevicePageReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceRespVO;
+import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSaveReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.driver.vo.IdNameVO;
 import cn.iocoder.yudao.module.business.dal.dataobject.device.DeviceDO;
 import cn.iocoder.yudao.module.business.service.device.DeviceService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
+import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
 @Tag(name = "管理后台 - 设备")
 @RestController
@@ -87,21 +85,19 @@ public class DeviceController {
     @PreAuthorize("@ss.hasPermission('business:device:export')")
     @OperateLog(type = EXPORT)
     public void exportDeviceExcel(@Valid DevicePageReqVO pageReqVO,
-              HttpServletResponse response) throws IOException {
+                                  HttpServletResponse response) throws IOException {
         pageReqVO.setPageSize(PageParam.PAGE_SIZE_NONE);
         List<DeviceDO> list = deviceService.getDevicePage(pageReqVO).getList();
         // 导出 Excel
         ExcelUtils.write(response, "设备.xls", "数据", DeviceRespVO.class,
-                        BeanUtils.toBean(list, DeviceRespVO.class));
+                BeanUtils.toBean(list, DeviceRespVO.class));
     }
 
     @GetMapping("/list-all-simple")
     @Operation(summary = "获取设备全列表", description = "只包含被开启的设备，主要用于前端的下拉选项")
     public CommonResult<List<IdNameVO>> getSimplePostList() {
         // 获得岗位列表，只要开启状态的
-        List<DeviceDO> list = deviceService.getDeviceList(null, Collections.singleton(CommonStatusEnum.ENABLE.getStatus()));
-        // 排序后，返回给前端
-//        list.sort(Comparator.comparing(DriverDO::getSort));
-        return success(BeanUtils.toBean(list, IdNameVO.class));
+        List<IdNameVO> list = deviceService.getSimpleList(null, Collections.singleton(CommonStatusEnum.ENABLE.getStatus()));
+        return success(list);
     }
 }
