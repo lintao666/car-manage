@@ -2,6 +2,7 @@ package cn.iocoder.yudao.module.business.controller.admin.device;
 
 import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
@@ -10,7 +11,6 @@ import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DevicePageReqVO;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceRespVO;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSaveReqVO;
-import cn.iocoder.yudao.module.business.controller.admin.driver.vo.IdNameVO;
 import cn.iocoder.yudao.module.business.dal.dataobject.device.DeviceDO;
 import cn.iocoder.yudao.module.business.service.device.DeviceService;
 import io.swagger.v3.oas.annotations.Operation;

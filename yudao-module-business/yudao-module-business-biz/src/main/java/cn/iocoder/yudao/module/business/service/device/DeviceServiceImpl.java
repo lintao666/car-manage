@@ -1,10 +1,10 @@
 package cn.iocoder.yudao.module.business.service.device;
 
+import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DevicePageReqVO;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSaveReqVO;
-import cn.iocoder.yudao.module.business.controller.admin.driver.vo.IdNameVO;
 import cn.iocoder.yudao.module.business.dal.dataobject.device.DeviceDO;
 import cn.iocoder.yudao.module.business.dal.mysql.device.DeviceMapper;
 import org.springframework.stereotype.Service;

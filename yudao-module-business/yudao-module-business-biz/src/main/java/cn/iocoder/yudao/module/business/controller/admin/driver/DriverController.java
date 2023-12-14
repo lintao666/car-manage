@@ -1,34 +1,34 @@
 package cn.iocoder.yudao.module.business.controller.admin.driver;
 
 import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
-import org.springframework.web.bind.annotation.*;
-import javax.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.security.access.prepost.PreAuthorize;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Operation;
-
-import javax.validation.constraints.*;
-import javax.validation.*;
-import javax.servlet.http.*;
-import java.util.*;
-import java.io.IOException;
-
+import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
-import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
-
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
-
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
-import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*;
-
-import cn.iocoder.yudao.module.business.controller.admin.driver.vo.*;
+import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverPageReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverRespVO;
+import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverSaveReqVO;
 import cn.iocoder.yudao.module.business.dal.dataobject.driver.DriverDO;
 import cn.iocoder.yudao.module.business.service.driver.DriverService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
+import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
 @Tag(name = "管理后台 - 司机")
 @RestController
@@ -85,12 +85,12 @@ public class DriverController {
     @PreAuthorize("@ss.hasPermission('business:driver:export')")
     @OperateLog(type = EXPORT)
     public void exportDriverExcel(@Valid DriverPageReqVO pageReqVO,
-              HttpServletResponse response) throws IOException {
+                                  HttpServletResponse response) throws IOException {
         pageReqVO.setPageSize(PageParam.PAGE_SIZE_NONE);
         List<DriverDO> list = driverService.getDriverPage(pageReqVO).getList();
         // 导出 Excel
         ExcelUtils.write(response, "司机.xls", "数据", DriverRespVO.class,
-                        BeanUtils.toBean(list, DriverRespVO.class));
+                BeanUtils.toBean(list, DriverRespVO.class));
     }
 
     @GetMapping("/list-all-simple")

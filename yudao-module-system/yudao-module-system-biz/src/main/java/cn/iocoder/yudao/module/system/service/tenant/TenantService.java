@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.system.service.tenant;
 
+import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.tenant.core.context.TenantContextHolder;
 import cn.iocoder.yudao.module.system.controller.admin.tenant.vo.tenant.TenantCreateReqVO;
@@ -66,6 +67,12 @@ public interface TenantService {
      * @return 租户分页
      */
     PageResult<TenantDO> getTenantPage(TenantPageReqVO pageReqVO);
+
+    /**
+     * 租户下拉列表
+     * @return 租户下拉列表
+     */
+    List<IdNameVO> getSimpleList();
 
     /**
      * 获得租户列表, 用于 Excel 导出

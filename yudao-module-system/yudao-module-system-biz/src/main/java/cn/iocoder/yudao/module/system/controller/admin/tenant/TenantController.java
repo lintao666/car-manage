@@ -1,6 +1,8 @@
 package cn.iocoder.yudao.module.system.controller.admin.tenant;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
@@ -11,6 +13,7 @@ import cn.iocoder.yudao.module.system.service.tenant.TenantService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -89,6 +92,13 @@ public class TenantController {
     public CommonResult<PageResult<TenantRespVO>> getTenantPage(@Valid TenantPageReqVO pageVO) {
         PageResult<TenantDO> pageResult = tenantService.getTenantPage(pageVO);
         return success(TenantConvert.INSTANCE.convertPage(pageResult));
+    }
+
+    @GetMapping("/simple-list")
+    @Operation(summary = "获得租户列表")
+    @PreAuthorize("@ss.hasPermission('system:tenant:query')")
+    public CommonResult<List<IdNameVO>> getTenantList() {
+        return success(tenantService.getSimpleList());
     }
 
     @GetMapping("/export-excel")

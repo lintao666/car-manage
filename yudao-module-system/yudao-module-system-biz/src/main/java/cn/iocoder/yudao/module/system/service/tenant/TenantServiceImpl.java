@@ -1,13 +1,16 @@
 package cn.iocoder.yudao.module.system.service.tenant;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
+import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.collection.CollectionUtils;
 import cn.iocoder.yudao.framework.common.util.date.DateUtils;
+import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
 import cn.iocoder.yudao.framework.tenant.config.TenantProperties;
 import cn.iocoder.yudao.framework.tenant.core.context.TenantContextHolder;
 import cn.iocoder.yudao.framework.tenant.core.util.TenantUtils;
@@ -244,6 +247,12 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public PageResult<TenantDO> getTenantPage(TenantPageReqVO pageReqVO) {
         return tenantMapper.selectPage(pageReqVO);
+    }
+
+    @Override
+    public List<IdNameVO> getSimpleList() {
+        List<TenantDO> tenants = tenantMapper.selectList();
+        return BeanUtils.toBean(tenants,IdNameVO.class);
     }
 
     @Override
