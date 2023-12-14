@@ -3,7 +3,8 @@ name: yudao-ui-admin CI
 # 在master分支发生push事件时触发。
 on:
   push:
-    branches: [ master ]
+#    branches: [ master ]
+    branches: [ dev ]
   # pull_request:
   #   branches: [ master ]
 env: # 设置环境变量
