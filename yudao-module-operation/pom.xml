@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.iocoder.boot</groupId>
+        <artifactId>yudao</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <modules>
+        <module>yudao-module-operation-api</module>
+        <module>yudao-module-operation-biz</module>
+    </modules>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>yudao-module-operation</artifactId>
+    <packaging>pom</packaging>
+
+    <name>${project.artifactId}</name>
+
+    <description>
+        operation 包下，运营管理
+    </description>
+
+</project>
