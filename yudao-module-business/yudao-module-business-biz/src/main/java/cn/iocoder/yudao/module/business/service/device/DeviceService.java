@@ -1,9 +1,9 @@
 package cn.iocoder.yudao.module.business.service.device;
 
-import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DevicePageReqVO;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSaveReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSimpleVO;
 import cn.iocoder.yudao.module.business.dal.dataobject.device.DeviceDO;
 import org.springframework.lang.Nullable;
 
@@ -72,5 +72,5 @@ public interface DeviceService {
      * @param statuses 状态数组。如果为空，不进行筛选
      * @return 设备下拉列表
      */
-    List<IdNameVO> getSimpleList(@Nullable Collection<Long> ids, @Nullable Collection<Integer> statuses);
+    List<DeviceSimpleVO> getSimpleList(@Nullable Collection<Long> ids, @Nullable Collection<Integer> statuses);
 }

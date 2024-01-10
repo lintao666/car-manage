@@ -1,10 +1,10 @@
 package cn.iocoder.yudao.module.business.service.device;
 
-import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DevicePageReqVO;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSaveReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSimpleVO;
 import cn.iocoder.yudao.module.business.dal.dataobject.device.DeviceDO;
 import cn.iocoder.yudao.module.business.dal.mysql.device.DeviceMapper;
 import org.springframework.stereotype.Service;
@@ -80,9 +80,9 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public List<IdNameVO> getSimpleList(Collection<Long> ids, Collection<Integer> statuses) {
+    public List<DeviceSimpleVO> getSimpleList(Collection<Long> ids, Collection<Integer> statuses) {
         List<DeviceDO> deviceList = getDeviceList(ids, statuses);
-        return deviceList.stream().map(item -> new IdNameVO(item.getId(), item.getDeviceId())).collect(Collectors.toList());
+        return deviceList.stream().map(item -> new DeviceSimpleVO(item.getId(), item.getDeviceId(),item.getDeviceId())).collect(Collectors.toList());
     }
 
 }

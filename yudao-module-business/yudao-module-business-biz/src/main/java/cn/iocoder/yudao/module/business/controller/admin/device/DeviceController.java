@@ -2,7 +2,6 @@ package cn.iocoder.yudao.module.business.controller.admin.device;
 
 import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
@@ -11,6 +10,7 @@ import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DevicePageReqVO;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceRespVO;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSaveReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSimpleVO;
 import cn.iocoder.yudao.module.business.dal.dataobject.device.DeviceDO;
 import cn.iocoder.yudao.module.business.service.device.DeviceService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -95,9 +95,9 @@ public class DeviceController {
 
     @GetMapping("/list-all-simple")
     @Operation(summary = "获取设备全列表", description = "只包含被开启的设备，主要用于前端的下拉选项")
-    public CommonResult<List<IdNameVO>> getSimplePostList() {
+    public CommonResult<List<DeviceSimpleVO>> getSimplePostList() {
         // 获得岗位列表，只要开启状态的
-        List<IdNameVO> list = deviceService.getSimpleList(null, Collections.singleton(CommonStatusEnum.ENABLE.getStatus()));
+        List<DeviceSimpleVO> list = deviceService.getSimpleList(null, Collections.singleton(CommonStatusEnum.ENABLE.getStatus()));
         return success(list);
     }
 }
