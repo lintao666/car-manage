@@ -49,7 +49,7 @@ public class InsuranceRespVO {
 
     @Schema(description = "保单照片")
     @ExcelProperty("保单照片")
-    private String pictures;
+    private List<String> pictures;
 
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("创建时间")

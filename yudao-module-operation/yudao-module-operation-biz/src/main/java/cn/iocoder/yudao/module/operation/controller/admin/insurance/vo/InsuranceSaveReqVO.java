@@ -37,6 +37,6 @@ public class InsuranceSaveReqVO {
     private LocalDate endDate;
 
     @Schema(description = "保单照片")
-    private String pictures;
+    private List<String> pictures;
 
 }
