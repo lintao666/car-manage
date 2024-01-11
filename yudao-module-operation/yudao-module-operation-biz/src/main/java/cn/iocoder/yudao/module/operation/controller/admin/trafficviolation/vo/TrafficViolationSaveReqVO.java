@@ -24,7 +24,7 @@ public class TrafficViolationSaveReqVO {
     @Schema(description = "驾驶员id", example = "13552")
     private Long driverId;
 
-    @Schema(description = "时间")
+    @Schema(description = "违法时间")
     private LocalDateTime violationDate;
 
     @Schema(description = "计分")
