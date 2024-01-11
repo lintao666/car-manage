@@ -49,7 +49,7 @@ public class MaintainRespVO {
 
     @Schema(description = "图片")
     @ExcelProperty("图片")
-    private String pic;
+    private List<String> pic;
 
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("创建时间")

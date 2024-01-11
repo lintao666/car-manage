@@ -37,6 +37,6 @@ public class MaintainSaveReqVO {
     private Double maintainEndMileage;
 
     @Schema(description = "图片")
-    private String pic;
+    private List<String> pic;
 
 }
