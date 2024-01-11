@@ -109,7 +109,7 @@ public class TrafficAccidentRespVO {
 
     @Schema(description = "保险理赔记录")
     @ExcelProperty("保险理赔记录")
-    private String insuranceRecord;
+    private InsuranceRecord[] insuranceRecord;
 
     @Schema(description = "保险理赔总金额")
     @ExcelProperty("保险理赔总金额")
@@ -130,7 +130,7 @@ public class TrafficAccidentRespVO {
 
     @Schema(description = "事故救援及处理记录")
     @ExcelProperty("事故救援及处理记录")
-    private String handleRecord;
+    private HandleRecord[] handleRecord;
 
     @Schema(description = "处理进度")
     @ExcelProperty("处理进度")

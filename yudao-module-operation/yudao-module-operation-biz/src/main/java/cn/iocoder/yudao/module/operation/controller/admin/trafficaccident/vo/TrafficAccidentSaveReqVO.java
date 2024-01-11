@@ -1,12 +1,10 @@
 package cn.iocoder.yudao.module.operation.controller.admin.trafficaccident.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-import java.util.*;
-import javax.validation.constraints.*;
-import java.util.*;
+import lombok.Data;
+
 import java.math.BigDecimal;
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Schema(description = "管理后台 - 交通事故新增/修改 Request VO")
@@ -22,6 +20,9 @@ public class TrafficAccidentSaveReqVO {
     @Schema(description = "车辆id", example = "21294")
     private Long vehicleId;
 
+    @Schema(description = "车辆自编号", example = "21294")
+    private String vehicleMask;
+
     @Schema(description = "事故时间")
     private LocalDateTime accidentDate;
 
@@ -36,6 +37,10 @@ public class TrafficAccidentSaveReqVO {
 
     @Schema(description = "处理部门")
     private String identificationDept;
+
+    @Schema(description = "认定书号")
+    private String identificationRecordNum;
+
 
     @Schema(description = "总计(事故损失)")
     private BigDecimal totalPay;
@@ -68,7 +73,7 @@ public class TrafficAccidentSaveReqVO {
     private Integer handleStatus;
 
     @Schema(description = "结案日期")
-    private String settlementDate;
+    private LocalDate settlementDate;
 
     @Schema(description = "三者物损")
     private BigDecimal otherGoodsPay;
@@ -80,7 +85,7 @@ public class TrafficAccidentSaveReqVO {
     private BigDecimal personTotalPay;
 
     @Schema(description = "保险理赔记录")
-    private String insuranceRecord;
+    private InsuranceRecord[] insuranceRecord;
 
     @Schema(description = "保险理赔总金额")
     private BigDecimal insuranceTotal;
@@ -95,7 +100,7 @@ public class TrafficAccidentSaveReqVO {
     private Short deadPerson;
 
     @Schema(description = "事故救援及处理记录")
-    private String handleRecord;
+    private HandleRecord[] handleRecord;
 
     @Schema(description = "处理进度")
     private String handleProcess;

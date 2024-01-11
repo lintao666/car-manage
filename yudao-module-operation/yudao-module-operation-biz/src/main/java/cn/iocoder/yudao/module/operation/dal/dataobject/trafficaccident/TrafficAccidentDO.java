@@ -1,29 +1,26 @@
 package cn.iocoder.yudao.module.operation.dal.dataobject.trafficaccident;
 
-import lombok.*;
-import java.util.*;
-import java.time.LocalDateTime;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import cn.iocoder.yudao.module.operation.controller.admin.trafficaccident.vo.HandleRecord;
+import cn.iocoder.yudao.module.operation.controller.admin.trafficaccident.vo.InsuranceRecord;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * 交通事故 DO
  *
  * @author 芋道源码
  */
-@TableName("operation_traffic_accident")
+@TableName(value = "operation_traffic_accident",autoResultMap = true)
 @KeySequence("operation_traffic_accident_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -47,6 +44,10 @@ public class TrafficAccidentDO extends BaseDO {
      */
     private Long vehicleId;
     /**
+     * 车辆自编号
+     */
+    private String vehicleMask;
+    /**
      * 事故时间
      */
     private LocalDateTime accidentDate;
@@ -56,7 +57,7 @@ public class TrafficAccidentDO extends BaseDO {
     private String place;
     /**
      * 事故责任
-     *
+     * <p>
      * 枚举 {@link TODO accident_responsibility 对应的类}
      */
     private Integer responsibility;
@@ -64,6 +65,10 @@ public class TrafficAccidentDO extends BaseDO {
      * 事故类别
      */
     private String accidentCategory;
+    /**
+     * 认定书号
+     */
+    private String identificationRecordNum;
     /**
      * 处理部门
      */
@@ -74,7 +79,7 @@ public class TrafficAccidentDO extends BaseDO {
     private BigDecimal totalPay;
     /**
      * 事故级别
-     *
+     * <p>
      * 枚举 {@link TODO accident_level 对应的类}
      */
     private Integer level;
@@ -108,14 +113,14 @@ public class TrafficAccidentDO extends BaseDO {
     private String photos;
     /**
      * 处理状态
-     *
+     * <p>
      * 枚举 {@link TODO handle_status 对应的类}
      */
     private Integer handleStatus;
     /**
      * 结案日期
      */
-    private String settlementDate;
+    private LocalDate settlementDate;
     /**
      * 三者物损
      */
@@ -131,14 +136,15 @@ public class TrafficAccidentDO extends BaseDO {
     /**
      * 保险理赔记录
      */
-    private String insuranceRecord;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private InsuranceRecord[] insuranceRecord;
     /**
      * 保险理赔总金额
      */
     private BigDecimal insuranceTotal;
     /**
      * 事故车辆数
-     *
+     * <p>
      * 枚举 {@link TODO vehicle_count 对应的类}
      */
     private Integer vehicleCount;
@@ -153,7 +159,8 @@ public class TrafficAccidentDO extends BaseDO {
     /**
      * 事故救援及处理记录
      */
-    private String handleRecord;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private HandleRecord[] handleRecord;
     /**
      * 处理进度
      */
