@@ -1,19 +1,20 @@
 package cn.iocoder.yudao.module.business.dal.dataobject.vehicle;
 
-import lombok.*;
-import java.util.*;
-import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import lombok.*;
+
+import java.util.List;
 
 /**
  * 车辆 DO
  *
  * @author 芋道源码
  */
-@TableName("business_vehicle")
-@KeySequence("business_vehicle_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@TableName(value = "business_vehicle", autoResultMap = true)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
@@ -62,24 +63,27 @@ public class VehicleDO extends BaseDO {
     /**
      * 设备列表
      */
-    private String deviceIdList;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private String[] deviceIdList;
     /**
      * 司机列表
      */
-    private String driverIdList;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<String> driverIdList;
     /**
      * 当前状态（非ACC状态）
-     *
+     * <p>
      * 枚举 {@link TODO vehicle_operation_state 对应的类}
      */
     private Integer currentState;
     /**
      * 附件（多张图片）
      */
-    private String attachment;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<String> attachment;
     /**
      * 状态
-     *
+     * <p>
      * 枚举 {@link TODO common_status 对应的类}
      */
     private Integer status;

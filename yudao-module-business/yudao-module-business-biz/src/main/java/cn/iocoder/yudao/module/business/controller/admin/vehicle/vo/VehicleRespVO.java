@@ -53,11 +53,11 @@ public class VehicleRespVO {
 
     @Schema(description = "设备列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("设备列表")
-    private String deviceIdList;
+    private String[] deviceIdList;
 
     @Schema(description = "司机列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("司机列表")
-    private String driverIdList;
+    private List<String> driverIdList;
 
     @Schema(description = "当前状态（非ACC状态）", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty(value = "当前状态（非ACC状态）", converter = DictConvert.class)
@@ -66,7 +66,7 @@ public class VehicleRespVO {
 
     @Schema(description = "附件（多张图片）", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("附件（多张图片）")
-    private String attachment;
+    private List<String> attachment;
 
     @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     @ExcelProperty(value = "状态", converter = DictConvert.class)
