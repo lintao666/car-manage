@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class JsonTest {
     public void test0() {
@@ -341,8 +342,10 @@ public class JsonTest {
         ObjectMapper objectMapper = new ObjectMapper();
 
         SimpleModule simpleModule = new SimpleModule();
-        simpleModule.addSerializer(LocalDate.class, LocalDateSerializer.INSTANCE)
+        simpleModule
+                .addSerializer(LocalDate.class, LocalDateSerializer.INSTANCE)
                 .addDeserializer(LocalDate.class, LocalDateDeserializer.INSTANCE)
+
                 .addSerializer(LocalTime.class, LocalTimeSerializer.INSTANCE)
                 .addDeserializer(LocalTime.class, LocalTimeDeserializer.INSTANCE)
                 // 新增 LocalDateTime 序列化、反序列化规则
@@ -352,10 +355,48 @@ public class JsonTest {
         // Additional customizations
 //        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
-        LocalDate date=LocalDate.now();
         try {
-            String str = objectMapper.writeValueAsString(date);
+            String str = objectMapper.writeValueAsString(LocalDate.now());
             System.out.println(str);
+            String str2 = objectMapper.writeValueAsString(LocalDateTime.now());
+            System.out.println(str2);
+            String str3 = objectMapper.writeValueAsString(LocalTime.now());
+            System.out.println(str3);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    public void testJsonJavaTimeDes2() {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+//        SimpleModule simpleModule = new SimpleModule();
+//        simpleModule
+//                .addSerializer(LocalDate.class, LocalDateSerializer.INSTANCE)
+//                .addDeserializer(LocalDate.class, LocalDateDeserializer.INSTANCE)
+//
+//                .addSerializer(LocalTime.class, LocalTimeSerializer.INSTANCE)
+//                .addDeserializer(LocalTime.class, LocalTimeDeserializer.INSTANCE)
+//                // 新增 LocalDateTime 序列化、反序列化规则
+//                .addSerializer(LocalDateTime.class, LocalDateTimeSerializer.INSTANCE)
+//                .addDeserializer(LocalDateTime.class, LocalDateTimeDeserializer.INSTANCE);
+//        objectMapper.registerModule(simpleModule);
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ISO_DATE))
+                .addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ISO_DATE));
+        objectMapper.registerModule(javaTimeModule);
+        // Additional customizations
+//        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
+        try {
+            String str = objectMapper.writeValueAsString(LocalDate.now());
+            System.out.println(str);
+            String str2 = objectMapper.writeValueAsString(LocalDateTime.now());
+            System.out.println(str2);
+            String str3 = objectMapper.writeValueAsString(LocalTime.now());
+            System.out.println(str3);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

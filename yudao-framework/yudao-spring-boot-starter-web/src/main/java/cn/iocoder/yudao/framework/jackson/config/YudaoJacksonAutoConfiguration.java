@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @AutoConfiguration
@@ -33,8 +34,8 @@ public class YudaoJacksonAutoConfiguration {
                 // 新增 Long 类型序列化规则，数值超过 2^53-1，在 JS 会出现精度丢失问题，因此 Long 自动序列化为字符串类型
                 .addSerializer(Long.class, NumberSerializer.INSTANCE)
                 .addSerializer(Long.TYPE, NumberSerializer.INSTANCE)
-                .addSerializer(LocalDate.class, LocalDateSerializer.INSTANCE)
-                .addDeserializer(LocalDate.class, LocalDateDeserializer.INSTANCE)
+                .addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ISO_DATE))
+                .addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ISO_DATE))
                 .addSerializer(LocalTime.class, LocalTimeSerializer.INSTANCE)
                 .addDeserializer(LocalTime.class, LocalTimeDeserializer.INSTANCE)
                 // 新增 LocalDateTime 序列化、反序列化规则
