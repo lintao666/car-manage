@@ -164,15 +164,13 @@ public class VehicleServiceImplTest extends BaseDbUnitTest {
        reqVO.setVehicleType(null);
        reqVO.setVin(null);
        reqVO.setEngineNumber(null);
-       reqVO.setDeviceIdList(null);
-       reqVO.setDriverIdList(null);
        reqVO.setCurrentState(null);
        reqVO.setAttachment(null);
        reqVO.setStatus(null);
        reqVO.setCreateTime(buildBetweenTime(2023, 2, 1, 2023, 2, 28));
 
        // 调用
-       PageResult<VehicleDO> pageResult = vehicleService.getVehiclePage(reqVO);
+       PageResult<VehicleRespVO> pageResult = vehicleService.getVehiclePage(reqVO);
        // 断言
        assertEquals(1, pageResult.getTotal());
        assertEquals(1, pageResult.getList().size());
