@@ -39,4 +39,4 @@ jobs:
       run: sshpass -p "$REMOTE_PASSWORD" scp -r -o StrictHostKeyChecking=no ./yudao-server/target/yudao-server.jar  root@$REMOTE_IP:/root/java-project
 
     - name: 启动项目
-      run: sshpass -p "${{ secrets.REMOTE_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.REMOTE_IP }} "cd /root/java-project && sh start.sh"
+      run: sshpass -p "${{ secrets.REMOTE_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.REMOTE_IP }} "cd /root/java-project && sh stop.sh && sleep 6s && sh start.sh"
