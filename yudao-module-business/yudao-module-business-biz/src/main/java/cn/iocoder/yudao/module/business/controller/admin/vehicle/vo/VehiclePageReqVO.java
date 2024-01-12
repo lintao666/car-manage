@@ -18,6 +18,9 @@ public class VehiclePageReqVO extends PageParam {
     @Schema(description = "所属分公司", example = "25787")
     private Long companyId;
 
+    @Schema(description = "部门id", requiredMode = Schema.RequiredMode.REQUIRED, example = "114")
+    private Long deptId;
+
     @Schema(description = "车牌号")
     private String carNumber;
 
@@ -38,12 +41,6 @@ public class VehiclePageReqVO extends PageParam {
 
     @Schema(description = "发动机号")
     private String engineNumber;
-
-    @Schema(description = "设备列表")
-    private String deviceIdList;
-
-    @Schema(description = "司机列表")
-    private String driverIdList;
 
     @Schema(description = "当前状态（非ACC状态）")
     private Integer currentState;

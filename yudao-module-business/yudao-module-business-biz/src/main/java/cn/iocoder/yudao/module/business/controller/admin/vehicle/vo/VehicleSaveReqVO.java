@@ -17,6 +17,10 @@ public class VehicleSaveReqVO {
     @NotNull(message = "所属分公司不能为空")
     private Long companyId;
 
+    @Schema(description = "部门id", requiredMode = Schema.RequiredMode.REQUIRED, example = "114")
+    @NotNull(message = "部门id不能为空")
+    private Long deptId;
+
     @Schema(description = "车牌号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "车牌号不能为空")
     private String carNumber;
@@ -47,11 +51,11 @@ public class VehicleSaveReqVO {
 
     @Schema(description = "设备列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "设备列表不能为空")
-    private List<String> deviceIdList;
+    private List<Long> deviceIdList;
 
     @Schema(description = "司机列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "司机列表不能为空")
-    private List<String> driverIdList;
+    private List<Long> driverIdList;
 
     @Schema(description = "当前状态（非ACC状态）", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "当前状态（非ACC状态）不能为空")

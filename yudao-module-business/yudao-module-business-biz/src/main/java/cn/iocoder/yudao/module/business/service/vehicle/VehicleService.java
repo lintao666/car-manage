@@ -50,6 +50,6 @@ public interface VehicleService {
      * @param pageReqVO 分页查询
      * @return 车辆分页
      */
-    PageResult<VehicleDO> getVehiclePage(VehiclePageReqVO pageReqVO);
+    PageResult<VehicleRespVO> getVehiclePage(VehiclePageReqVO pageReqVO);
 
 }

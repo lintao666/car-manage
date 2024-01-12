@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.business.controller.admin.vehicle.vo;
 
+import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import java.util.*;
@@ -9,6 +10,8 @@ import java.time.LocalDateTime;
 import com.alibaba.excel.annotation.*;
 import cn.iocoder.yudao.framework.excel.core.annotations.DictFormat;
 import cn.iocoder.yudao.framework.excel.core.convert.DictConvert;
+
+import javax.validation.constraints.NotNull;
 
 @Schema(description = "管理后台 - 车辆 Response VO")
 @Data
@@ -22,6 +25,10 @@ public class VehicleRespVO {
     @Schema(description = "所属分公司", requiredMode = Schema.RequiredMode.REQUIRED, example = "25787")
     @ExcelProperty("所属分公司")
     private Long companyId;
+
+    @Schema(description = "部门id", requiredMode = Schema.RequiredMode.REQUIRED, example = "114")
+    @ExcelProperty("所属部门")
+    private Long deptId;
 
     @Schema(description = "车牌号", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("车牌号")
@@ -53,11 +60,11 @@ public class VehicleRespVO {
 
     @Schema(description = "设备列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("设备列表")
-    private String[] deviceIdList;
+    private List<IdNameVO> deviceList;
 
     @Schema(description = "司机列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("司机列表")
-    private List<String> driverIdList;
+    private List<IdNameVO> driverList;
 
     @Schema(description = "当前状态（非ACC状态）", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty(value = "当前状态（非ACC状态）", converter = DictConvert.class)

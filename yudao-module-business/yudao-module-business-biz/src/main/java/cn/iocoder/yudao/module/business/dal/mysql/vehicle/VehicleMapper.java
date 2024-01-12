@@ -27,8 +27,6 @@ public interface VehicleMapper extends BaseMapperX<VehicleDO> {
                 .eqIfPresent(VehicleDO::getVehicleType, reqVO.getVehicleType())
                 .eqIfPresent(VehicleDO::getVin, reqVO.getVin())
                 .eqIfPresent(VehicleDO::getEngineNumber, reqVO.getEngineNumber())
-                .eqIfPresent(VehicleDO::getDeviceIdList, reqVO.getDeviceIdList())
-                .eqIfPresent(VehicleDO::getDriverIdList, reqVO.getDriverIdList())
                 .eqIfPresent(VehicleDO::getCurrentState, reqVO.getCurrentState())
                 .eqIfPresent(VehicleDO::getAttachment, reqVO.getAttachment())
                 .eqIfPresent(VehicleDO::getStatus, reqVO.getStatus())

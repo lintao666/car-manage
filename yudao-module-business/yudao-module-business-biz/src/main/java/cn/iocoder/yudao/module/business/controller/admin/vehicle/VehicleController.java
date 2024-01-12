@@ -75,8 +75,8 @@ public class VehicleController {
     @Operation(summary = "获得车辆分页")
     @PreAuthorize("@ss.hasPermission('business:vehicle:query')")
     public CommonResult<PageResult<VehicleRespVO>> getVehiclePage(@Valid VehiclePageReqVO pageReqVO) {
-        PageResult<VehicleDO> pageResult = vehicleService.getVehiclePage(pageReqVO);
-        return success(BeanUtils.toBean(pageResult, VehicleRespVO.class));
+        PageResult<VehicleRespVO> pageResult = vehicleService.getVehiclePage(pageReqVO);
+        return success(pageResult);
     }
 
     @GetMapping("/export-excel")
@@ -86,10 +86,9 @@ public class VehicleController {
     public void exportVehicleExcel(@Valid VehiclePageReqVO pageReqVO,
               HttpServletResponse response) throws IOException {
         pageReqVO.setPageSize(PageParam.PAGE_SIZE_NONE);
-        List<VehicleDO> list = vehicleService.getVehiclePage(pageReqVO).getList();
+        List<VehicleRespVO> list = vehicleService.getVehiclePage(pageReqVO).getList();
         // 导出 Excel
-        ExcelUtils.write(response, "车辆.xls", "数据", VehicleRespVO.class,
-                        BeanUtils.toBean(list, VehicleRespVO.class));
+        ExcelUtils.write(response, "车辆.xls", "数据", VehicleRespVO.class, list);
     }
 
 }

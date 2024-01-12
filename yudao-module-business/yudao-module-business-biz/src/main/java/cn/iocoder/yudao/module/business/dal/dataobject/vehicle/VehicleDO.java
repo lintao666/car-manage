@@ -1,11 +1,13 @@
 package cn.iocoder.yudao.module.business.dal.dataobject.vehicle;
 
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import cn.iocoder.yudao.framework.mybatis.core.type.LongListTypeHandler;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.*;
+import org.apache.ibatis.type.ArrayTypeHandler;
 
 import java.util.List;
 
@@ -32,6 +34,10 @@ public class VehicleDO extends BaseDO {
      * 所属分公司
      */
     private Long companyId;
+    /**
+     * 部门id
+     */
+    private Long deptId;
     /**
      * 车牌号
      */
@@ -63,13 +69,13 @@ public class VehicleDO extends BaseDO {
     /**
      * 设备列表
      */
-    @TableField(typeHandler = JacksonTypeHandler.class)
-    private String[] deviceIdList;
+    @TableField(typeHandler = LongListTypeHandler.class)
+    private List<Long> deviceIdList;
     /**
      * 司机列表
      */
-    @TableField(typeHandler = JacksonTypeHandler.class)
-    private List<String> driverIdList;
+    @TableField(typeHandler = LongListTypeHandler.class)
+    private List<Long> driverIdList;
     /**
      * 当前状态（非ACC状态）
      * <p>
