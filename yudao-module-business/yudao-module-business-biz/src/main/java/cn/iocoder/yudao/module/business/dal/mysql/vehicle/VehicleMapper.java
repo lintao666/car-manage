@@ -20,6 +20,7 @@ public interface VehicleMapper extends BaseMapperX<VehicleDO> {
     default PageResult<VehicleDO> selectPage(VehiclePageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<VehicleDO>()
                 .eqIfPresent(VehicleDO::getCompanyId, reqVO.getCompanyId())
+                .eqIfPresent(VehicleDO::getVehicleMask, reqVO.getVehicleMask())
                 .eqIfPresent(VehicleDO::getCarNumber, reqVO.getCarNumber())
                 .eqIfPresent(VehicleDO::getBrand, reqVO.getBrand())
                 .eqIfPresent(VehicleDO::getVehicleModel, reqVO.getVehicleModel())

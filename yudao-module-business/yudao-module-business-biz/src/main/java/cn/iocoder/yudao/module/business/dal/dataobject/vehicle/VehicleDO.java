@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.*;
-import org.apache.ibatis.type.ArrayTypeHandler;
 
 import java.util.List;
 
@@ -38,6 +37,10 @@ public class VehicleDO extends BaseDO {
      * 部门id
      */
     private Long deptId;
+    /**
+     * 自编号
+     */
+    private String vehicleMask;
     /**
      * 车牌号
      */

@@ -24,6 +24,9 @@ public class VehiclePageReqVO extends PageParam {
     @Schema(description = "车牌号")
     private String carNumber;
 
+    @Schema(description = "自编号", example = "21294")
+    private String vehicleMask;
+
     @Schema(description = "车辆品牌")
     private String brand;
 

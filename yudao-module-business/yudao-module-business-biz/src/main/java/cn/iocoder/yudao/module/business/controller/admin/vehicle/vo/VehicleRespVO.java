@@ -30,6 +30,10 @@ public class VehicleRespVO {
     @ExcelProperty("所属部门")
     private Long deptId;
 
+    @Schema(description = "自编号", example = "21294")
+    @ExcelProperty("自编号")
+    private String vehicleMask;
+
     @Schema(description = "车牌号", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("车牌号")
     private String carNumber;
