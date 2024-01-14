@@ -14,15 +14,8 @@ public class MaintainSaveReqVO {
 
     @Schema(description = "编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "10675")
     private Long id;
-
     @Schema(description = "车辆id", example = "27680")
     private Long vehicleId;
-
-    @Schema(description = "合格证号")
-    private String certificateNumber;
-
-    @Schema(description = "维护保养厂")
-    private String maintainShop;
 
     @Schema(description = "保养日期")
     private LocalDate maintainDate;
@@ -35,8 +28,13 @@ public class MaintainSaveReqVO {
 
     @Schema(description = "保养到期里程")
     private Double maintainEndMileage;
-
+    @Schema(description = "维护保养厂")
+    private String maintainShop;
+    @Schema(description = "合格证号")
+    private String certificateNumber;
     @Schema(description = "图片")
     private List<String> pic;
 
+    //maintainMonths  保养时间周期(月)
+    //maintainMileages 保养里程周期(KM)
 }

@@ -1,21 +1,23 @@
 package cn.iocoder.yudao.module.operation.service.maintain;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
-import cn.iocoder.yudao.module.operation.controller.admin.maintain.vo.*;
-import cn.iocoder.yudao.module.operation.dal.dataobject.maintain.MaintainDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
-
+import cn.iocoder.yudao.module.operation.controller.admin.maintain.vo.MaintainPageReqVO;
+import cn.iocoder.yudao.module.operation.controller.admin.maintain.vo.MaintainSaveReqVO;
+import cn.iocoder.yudao.module.operation.dal.dataobject.maintain.MaintainDO;
 import cn.iocoder.yudao.module.operation.dal.mysql.maintain.MaintainMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.util.List;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.iocoder.yudao.module.operation.enums.ErrorCodeConstants.*;
+import static cn.iocoder.yudao.module.operation.enums.ErrorCodeConstants.MAINTAIN_NOT_EXISTS;
 
 /**
  * 保养/二级维护 Service 实现类
@@ -69,6 +71,31 @@ public class MaintainServiceImpl implements MaintainService {
     @Override
     public PageResult<MaintainDO> getMaintainPage(MaintainPageReqVO pageReqVO) {
         return maintainMapper.selectPage(pageReqVO);
+    }
+
+    @Override
+    public Long getIdByVehicleIdAndMaintainDate(Long vehicleId, LocalDate maintainDate) {
+        List<MaintainDO> list = maintainMapper.selectList(Wrappers.<MaintainDO>lambdaQuery()
+                .eq(MaintainDO::getVehicleId, vehicleId)
+                .eq(MaintainDO::getMaintainDate, maintainDate));
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
+        return list.get(0).getId();
+    }
+
+    @Override
+    @Transactional
+    public int batchSave(List<MaintainDO> list) {
+        maintainMapper.insertBatch(list);
+        return list.size();
+    }
+
+    @Override
+    @Transactional
+    public int batchUpdate(List<MaintainDO> list) {
+        maintainMapper.updateBatch(list);
+        return list.size();
     }
 
 }
