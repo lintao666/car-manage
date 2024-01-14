@@ -40,8 +40,6 @@ public class RepairVehicleListener implements ReadListener<RepairVehicleImportVO
         return RepairVehicleImportRespVO.builder().creates(insert).updates(update).failureRecords(errorMap).build();
     }
 
-    private RepairVehicleImportRespVO importResp;
-
     public RepairVehicleListener(RepairVehicleService repairVehicleService, VehicleApi vehicleApi) {
         this.repairVehicleService = repairVehicleService;
         this.vehicleApi = vehicleApi;
