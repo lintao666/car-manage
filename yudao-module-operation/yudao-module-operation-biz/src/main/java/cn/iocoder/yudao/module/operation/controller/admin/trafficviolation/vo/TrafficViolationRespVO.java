@@ -73,8 +73,8 @@ public class TrafficViolationRespVO {
     @DictFormat("traffic_violation_handle_status") // TODO 代码优化：建议设置到对应的 DictTypeConstants 枚举类中
     private Integer handleStatus;
 
-    @Schema(description = "1-简易程序  2-一般程序", example = "1")
-    @ExcelProperty("1-简易程序  2-一般程序")
+    @Schema(description = "决定书类别：1-简易程序  2-一般程序", example = "1")
+    @ExcelProperty("决定书类别：1-简易程序  2-一般程序")
     private Short decisionType;
 
     @Schema(description = "违法驾驶员处理记录")

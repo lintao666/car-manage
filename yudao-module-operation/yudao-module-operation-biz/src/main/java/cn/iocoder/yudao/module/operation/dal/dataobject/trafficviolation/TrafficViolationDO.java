@@ -1,19 +1,20 @@
 package cn.iocoder.yudao.module.operation.dal.dataobject.trafficviolation;
 
-import lombok.*;
-import java.util.*;
-import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 /**
  * 交通违法 DO
  *
  * @author 芋道源码
  */
-@TableName(value = "operation_traffic_violation",autoResultMap = true)
+@TableName(value = "operation_traffic_violation", autoResultMap = true)
 @KeySequence("operation_traffic_violation_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -75,13 +76,13 @@ public class TrafficViolationDO extends BaseDO {
     private Short source;
     /**
      * 支付状态：0-否；1-已交款
-     *
+     * <p>
      * 枚举 {@link TODO pay_status 对应的类}
      */
     private Integer payStatus;
     /**
      * 处理状态：0-未处理1-已处理
-     *
+     * <p>
      * 枚举 {@link TODO traffic_violation_handle_status 对应的类}
      */
     private Integer handleStatus;
@@ -101,5 +102,10 @@ public class TrafficViolationDO extends BaseDO {
      * 相关人员教育培训记录
      */
     private String educationTraining;
+
+    /**
+     * 受理单号
+     */
+//    private String plateNo;
 
 }

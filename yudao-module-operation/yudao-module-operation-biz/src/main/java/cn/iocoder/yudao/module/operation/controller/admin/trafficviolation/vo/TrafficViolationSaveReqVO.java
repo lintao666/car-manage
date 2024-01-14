@@ -54,7 +54,7 @@ public class TrafficViolationSaveReqVO {
     @Schema(description = "处理状态：0-未处理1-已处理", example = "1")
     private Integer handleStatus;
 
-    @Schema(description = "1-简易程序  2-一般程序", example = "1")
+    @Schema(description = "决定书类别：1-简易程序  2-一般程序", example = "1")
     private Short decisionType;
 
     @Schema(description = "违法驾驶员处理记录")
