@@ -62,5 +62,5 @@ public interface DriverService {
     List<DriverDO> getDriverList(@Nullable Collection<Long> ids, @Nullable Collection<Integer> statuses);
 
 
-
+    Optional<Long> getIdByVehicleIdAndName(String vehicleId, String name);
 }

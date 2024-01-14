@@ -1,21 +1,22 @@
 package cn.iocoder.yudao.module.business.dal.dataobject.driver;
 
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.*;
-import java.util.*;
+
 import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.*;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import java.util.List;
 
 /**
  * 司机 DO
  *
  * @author 芋道源码
  */
-@TableName(value = "business_driver",autoResultMap = true)
+@TableName(value = "business_driver", autoResultMap = true)
 @KeySequence("business_driver_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -46,6 +47,10 @@ public class DriverDO extends BaseDO {
      * 车牌号
      */
     private String carNumber;
+    /**
+     * 车辆id
+     */
+    private String vehicleId;
     /**
      * 手机号码
      */
@@ -85,7 +90,7 @@ public class DriverDO extends BaseDO {
     private List<String> attachment;
     /**
      * 状态
-     *
+     * <p>
      * 枚举 {@link TODO common_status 对应的类}
      */
     private Integer status;

@@ -1,21 +1,23 @@
 package cn.iocoder.yudao.module.business.service.driver;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
-import cn.iocoder.yudao.module.business.controller.admin.driver.vo.*;
-import cn.iocoder.yudao.module.business.dal.dataobject.driver.DriverDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
-
+import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverPageReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverSaveReqVO;
+import cn.iocoder.yudao.module.business.dal.dataobject.driver.DriverDO;
 import cn.iocoder.yudao.module.business.dal.mysql.driver.DriverMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.iocoder.yudao.module.business.enums.ErrorCodeConstants.*;
+import static cn.iocoder.yudao.module.business.enums.ErrorCodeConstants.DRIVER_NOT_EXISTS;
 
 /**
  * 司机 Service 实现类
@@ -74,6 +76,16 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public List<DriverDO> getDriverList(Collection<Long> ids, Collection<Integer> statuses) {
         return driverMapper.selectList(ids, statuses);
+    }
+
+    @Override
+    public Optional<Long> getIdByVehicleIdAndName(String vehicleId, String name) {
+        List<DriverDO> list = driverMapper.selectList(Wrappers.<DriverDO>lambdaQuery().eq(DriverDO::getCarNumber, vehicleId).eq(DriverDO::getName, name));
+        if (CollectionUtils.isEmpty(list)) {
+            return Optional.empty();
+        } else {
+            return Optional.of(list.get(0).getId());
+        }
     }
 
 }
