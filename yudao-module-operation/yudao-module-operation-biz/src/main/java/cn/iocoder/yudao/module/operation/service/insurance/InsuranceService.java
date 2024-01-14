@@ -6,6 +6,7 @@ import cn.iocoder.yudao.module.operation.controller.admin.insurance.vo.*;
 import cn.iocoder.yudao.module.operation.dal.dataobject.insurance.InsuranceDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
+import cn.iocoder.yudao.module.operation.dal.dataobject.maintain.MaintainDO;
 
 /**
  * 保单 Service 接口
@@ -52,4 +53,18 @@ public interface InsuranceService {
      */
     PageResult<InsuranceDO> getInsurancePage(InsurancePageReqVO pageReqVO);
 
+    /**
+     * 批量新增
+     *
+     * @param list 保单信息
+     * @return 新增成功条数
+     */
+    int batchSave(@Valid List<InsuranceDO> list);
+
+    /**
+     * 批量修改
+     * @param list 保单修改信息
+     * @return 修改成功条数
+     */
+    int batchUpdate(@Valid List<InsuranceDO> list);
 }

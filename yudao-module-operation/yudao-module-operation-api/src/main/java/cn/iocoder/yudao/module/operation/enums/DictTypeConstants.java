@@ -22,9 +22,13 @@ public interface DictTypeConstants {
     /**
      * 交通违法-处理状态 1已处理 0未处理
      */
-    String OPERATION_DISPOSE_STATUS = "disposeStatus";
+    String OPERATION_HANDLE_STATUS = "handle_status";
     /**
      * 交通违法-决定书类别：1-简易程序  2-一般程序
      */
-    String DECISION_TYPE = "decisionType";
+    String DECISION_TYPE = "decision_type";
+    /**
+     * 车辆维修-损坏等级
+     */
+    String OPERATION_REPAIR_LEVEL = "repair_level";
 }

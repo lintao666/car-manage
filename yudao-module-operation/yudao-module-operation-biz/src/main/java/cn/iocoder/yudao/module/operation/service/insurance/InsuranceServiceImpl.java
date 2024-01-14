@@ -1,21 +1,20 @@
 package cn.iocoder.yudao.module.operation.service.insurance;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
-import cn.iocoder.yudao.module.operation.controller.admin.insurance.vo.*;
-import cn.iocoder.yudao.module.operation.dal.dataobject.insurance.InsuranceDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
-
+import cn.iocoder.yudao.module.operation.controller.admin.insurance.vo.InsurancePageReqVO;
+import cn.iocoder.yudao.module.operation.controller.admin.insurance.vo.InsuranceSaveReqVO;
+import cn.iocoder.yudao.module.operation.dal.dataobject.insurance.InsuranceDO;
 import cn.iocoder.yudao.module.operation.dal.mysql.insurance.InsuranceMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static cn.iocoder.yudao.module.operation.enums.ErrorCodeConstants.*;
+import static cn.iocoder.yudao.module.operation.enums.ErrorCodeConstants.INSURANCE_NOT_EXISTS;
 
 /**
  * 保单 Service 实现类
@@ -71,4 +70,17 @@ public class InsuranceServiceImpl implements InsuranceService {
         return insuranceMapper.selectPage(pageReqVO);
     }
 
+    @Override
+    @Transactional
+    public int batchSave(List<InsuranceDO> list) {
+        insuranceMapper.insertBatch(list);
+        return list.size();
+    }
+
+    @Override
+    @Transactional
+    public int batchUpdate(List<InsuranceDO> list) {
+        insuranceMapper.updateBatch(list);
+        return list.size();
+    }
 }

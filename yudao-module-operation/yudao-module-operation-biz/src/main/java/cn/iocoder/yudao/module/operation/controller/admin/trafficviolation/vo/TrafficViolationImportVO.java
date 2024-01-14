@@ -33,8 +33,8 @@ public class TrafficViolationImportVO {
 //    @ExcelProperty("处理结果")
 //    private String disposeResult;
 //    @ExcelProperty(value = "处理状态", converter = DictConvert.class)
-//    @DictFormat(DictTypeConstants.OPERATION_DISPOSE_STATUS)
-//    private Integer disposeStatus;
+//    @DictFormat(DictTypeConstants.OPERATION_HANDLE_STATUS)
+//    private Integer handleStatus;
 //    @ExcelProperty("处理人")
 //    private String disposeId;
 

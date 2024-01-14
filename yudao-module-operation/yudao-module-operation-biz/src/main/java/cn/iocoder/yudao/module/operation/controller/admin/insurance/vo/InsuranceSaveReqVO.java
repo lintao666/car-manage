@@ -15,7 +15,7 @@ public class InsuranceSaveReqVO {
     @Schema(description = "编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "27352")
     private Long id;
 
-    @Schema(description = "1 - 交强险，2 - 商业险,3-承运人责任险", example = "2")
+    @Schema(description = "保险类型：1 - 交强险，2 - 商业险,3-承运人责任险", example = "2")
     private Integer insuranceType;
 
     @Schema(description = "车辆Id", example = "9582")
