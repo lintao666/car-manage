@@ -11,4 +11,8 @@ public interface DictTypeConstants {
      */
     String OPERATION_INSPECTION_TYPE = "inspection_type";
 
+    /**
+     * 交通事故-责任情况
+     */
+    String OPERATION_RESPONSIBILITY = "responsibility";
 }
