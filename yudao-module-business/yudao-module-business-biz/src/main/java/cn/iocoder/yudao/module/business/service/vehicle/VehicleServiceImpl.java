@@ -12,13 +12,15 @@ import cn.iocoder.yudao.module.business.dal.dataobject.vehicle.VehicleDO;
 import cn.iocoder.yudao.module.business.dal.mysql.vehicle.VehicleMapper;
 import cn.iocoder.yudao.module.business.service.device.DeviceService;
 import cn.iocoder.yudao.module.business.service.driver.DriverService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -100,6 +102,16 @@ public class VehicleServiceImpl implements VehicleService {
             return vo;
         }).collect(toList());
         return new PageResult<>(list, page.getTotal());
+    }
+
+    @Override
+    public Optional<Long> getIdByMaskAndCarNumber(String vehicleMask, String carNumber) {
+        List<VehicleDO> list = vehicleMapper.selectList(Wrappers.<VehicleDO>lambdaQuery().eq(VehicleDO::getVehicleMask, vehicleMask).eq(VehicleDO::getCarNumber, carNumber));
+        if (CollectionUtils.isEmpty(list)) {
+            return Optional.empty();
+        } else {
+            return Optional.of(list.get(0).getId());
+        }
     }
 
 }

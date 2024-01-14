@@ -52,4 +52,11 @@ public interface VehicleService {
      */
     PageResult<VehicleRespVO> getVehiclePage(VehiclePageReqVO pageReqVO);
 
+    /**
+     * 查询车辆id
+     * @param vehicleMask 自编号
+     * @param carNumber 车牌号
+     * @return 车辆id
+     */
+    Optional<Long> getIdByMaskAndCarNumber(String vehicleMask, String carNumber);
 }
