@@ -7,8 +7,8 @@ package cn.iocoder.yudao.module.operation.enums;
  */
 public interface DictTypeConstants {
     /**
-     * 损坏等级
+     * 审验类型 1车辆年审，2气瓶年审
      */
-    String OPERATION_REPAIR_LEVEL = "repair_level";
+    String OPERATION_INSPECTION_TYPE = "inspection_type";
 
 }

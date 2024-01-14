@@ -1,11 +1,13 @@
 package cn.iocoder.yudao.module.operation.service.inspection;
 
+import java.time.LocalDate;
 import java.util.*;
 import javax.validation.*;
 import cn.iocoder.yudao.module.operation.controller.admin.inspection.vo.*;
 import cn.iocoder.yudao.module.operation.dal.dataobject.inspection.InspectionDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
+import cn.iocoder.yudao.module.operation.dal.dataobject.repairvehicle.RepairVehicleDO;
 
 /**
  * 年审 Service 接口
@@ -52,4 +54,20 @@ public interface InspectionService {
      */
     PageResult<InspectionDO> getInspectionPage(InspectionPageReqVO pageReqVO);
 
+    Long getIdByCondition(Long vehicleId, Integer inspectionType, LocalDate inspectionDate);
+
+    /**
+     * 批量新增
+     *
+     * @param list 车辆创建信息
+     * @return 新增成功条数
+     */
+    int batchSave(@Valid List<InspectionDO> list);
+
+    /**
+     * 批量修改
+     * @param list 车辆修改信息
+     * @return 修改成功条数
+     */
+    int batchUpdate(@Valid List<InspectionDO> list);
 }
