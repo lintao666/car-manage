@@ -1,13 +1,12 @@
 package cn.iocoder.yudao.module.operation.dal.dataobject.repairvehicle;
 
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.*;
-import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.*;
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 维修 DO
@@ -31,7 +30,7 @@ public class RepairVehicleDO extends BaseDO {
     private Long id;
     /**
      * 维修类别1日常维修2事故维修3设备维修
-     *
+     * <p>
      * 枚举 {@link TODO repair_type 对应的类}
      */
     private Integer repairType;
@@ -49,7 +48,7 @@ public class RepairVehicleDO extends BaseDO {
     private String repairTheme;
     /**
      * 受损等级
-     *
+     * <p>
      * 枚举 {@link TODO repair_level 对应的类}
      */
     private Integer repairLevel;
@@ -67,7 +66,7 @@ public class RepairVehicleDO extends BaseDO {
     private Double repairMoney;
     /**
      * 1正在维修，0维修完成
-     *
+     * <p>
      * 枚举 {@link TODO repairing 对应的类}
      */
     private Integer repairing;
@@ -79,5 +78,13 @@ public class RepairVehicleDO extends BaseDO {
      * 事故表id(表示交通事故维修)
      */
     private Long accidentId;
+    /**
+     * 报修日期
+     */
+    private LocalDate reportDate;
+    /**
+     * 报修人
+     */
+    private String reportUser;
 
 }
