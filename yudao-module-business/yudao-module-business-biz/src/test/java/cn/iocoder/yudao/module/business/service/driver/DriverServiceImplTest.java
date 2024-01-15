@@ -110,7 +110,7 @@ public class DriverServiceImplTest extends BaseDbUnitTest {
     public void testGetDriverPage() {
        // mock 数据
        DriverDO dbDriver = randomPojo(DriverDO.class, o -> { // 等会查询到
-           o.setCompanyId(null);
+           o.setDeptId(null);
            o.setName(null);
            o.setIdNumber(null);
            o.setCarNumber(null);
@@ -128,7 +128,7 @@ public class DriverServiceImplTest extends BaseDbUnitTest {
        });
        driverMapper.insert(dbDriver);
        // 测试 companyId 不匹配
-       driverMapper.insert(cloneIgnoreId(dbDriver, o -> o.setCompanyId(null)));
+       driverMapper.insert(cloneIgnoreId(dbDriver, o -> o.setDeptId(null)));
        // 测试 name 不匹配
        driverMapper.insert(cloneIgnoreId(dbDriver, o -> o.setName(null)));
        // 测试 idNumber 不匹配
@@ -159,7 +159,7 @@ public class DriverServiceImplTest extends BaseDbUnitTest {
        driverMapper.insert(cloneIgnoreId(dbDriver, o -> o.setCreateTime(null)));
        // 准备参数
        DriverPageReqVO reqVO = new DriverPageReqVO();
-       reqVO.setCompanyId(null);
+       reqVO.setDeptId(null);
        reqVO.setName(null);
        reqVO.setIdNumber(null);
        reqVO.setCarNumber(null);
