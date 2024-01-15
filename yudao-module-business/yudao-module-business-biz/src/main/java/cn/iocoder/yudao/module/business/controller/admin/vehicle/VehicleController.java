@@ -66,9 +66,8 @@ public class VehicleController {
     @Operation(summary = "获得车辆")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('business:vehicle:query')")
-    public CommonResult<VehicleRespVO> getVehicle(@RequestParam("id") Long id) {
-        VehicleDO vehicle = vehicleService.getVehicle(id);
-        return success(BeanUtils.toBean(vehicle, VehicleRespVO.class));
+    public CommonResult<VehicleDetailVO> getVehicle(@RequestParam("id") Long id) {
+        return success(vehicleService.getVehicle(id));
     }
 
     @GetMapping("/page")

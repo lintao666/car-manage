@@ -76,8 +76,8 @@ public class DriverController {
     @Operation(summary = "获得司机分页")
     @PreAuthorize("@ss.hasPermission('business:driver:query')")
     public CommonResult<PageResult<DriverRespVO>> getDriverPage(@Valid DriverPageReqVO pageReqVO) {
-        PageResult<DriverDO> pageResult = driverService.getDriverPage(pageReqVO);
-        return success(BeanUtils.toBean(pageResult, DriverRespVO.class));
+        PageResult<DriverRespVO> pageResult = driverService.getDriverPage(pageReqVO);
+        return success(pageResult);
     }
 
     @GetMapping("/export-excel")
@@ -87,10 +87,9 @@ public class DriverController {
     public void exportDriverExcel(@Valid DriverPageReqVO pageReqVO,
                                   HttpServletResponse response) throws IOException {
         pageReqVO.setPageSize(PageParam.PAGE_SIZE_NONE);
-        List<DriverDO> list = driverService.getDriverPage(pageReqVO).getList();
+        List<DriverRespVO> list = driverService.getDriverPage(pageReqVO).getList();
         // 导出 Excel
-        ExcelUtils.write(response, "司机.xls", "数据", DriverRespVO.class,
-                BeanUtils.toBean(list, DriverRespVO.class));
+        ExcelUtils.write(response, "司机.xls", "数据", DriverRespVO.class, list);
     }
 
     @GetMapping("/list-all-simple")

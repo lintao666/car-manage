@@ -3,9 +3,7 @@ package cn.iocoder.yudao.module.business.service.vehicle;
 import java.util.*;
 import javax.validation.*;
 import cn.iocoder.yudao.module.business.controller.admin.vehicle.vo.*;
-import cn.iocoder.yudao.module.business.dal.dataobject.vehicle.VehicleDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.common.pojo.PageParam;
 
 /**
  * 车辆 Service 接口
@@ -42,7 +40,7 @@ public interface VehicleService {
      * @param id 编号
      * @return 车辆
      */
-    VehicleDO getVehicle(Long id);
+    VehicleDetailVO getVehicle(Long id);
 
     /**
      * 获得车辆分页

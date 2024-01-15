@@ -22,6 +22,7 @@ public class DriverRespVO {
     @Schema(description = "部门id", requiredMode = Schema.RequiredMode.REQUIRED, example = "12384")
     @ExcelProperty("部门")
     private Long deptId;
+    private String deptName;
 
     @Schema(description = "司机姓名", requiredMode = Schema.RequiredMode.REQUIRED, example = "赵六")
     @ExcelProperty("司机姓名")

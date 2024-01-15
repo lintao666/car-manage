@@ -5,7 +5,6 @@ import javax.validation.*;
 import cn.iocoder.yudao.module.business.controller.admin.driver.vo.*;
 import cn.iocoder.yudao.module.business.dal.dataobject.driver.DriverDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import org.springframework.lang.Nullable;
 
 /**
@@ -51,7 +50,7 @@ public interface DriverService {
      * @param pageReqVO 分页查询
      * @return 司机分页
      */
-    PageResult<DriverDO> getDriverPage(DriverPageReqVO pageReqVO);
+    PageResult<DriverRespVO> getDriverPage(DriverPageReqVO pageReqVO);
 
     /**
      * 获得符合条件的司机列表

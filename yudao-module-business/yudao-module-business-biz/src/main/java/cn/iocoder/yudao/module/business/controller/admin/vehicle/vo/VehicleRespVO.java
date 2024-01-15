@@ -29,6 +29,7 @@ public class VehicleRespVO {
     @Schema(description = "部门id", requiredMode = Schema.RequiredMode.REQUIRED, example = "114")
     @ExcelProperty("所属部门")
     private Long deptId;
+    private String deptName;
 
     @Schema(description = "自编号", example = "21294")
     @ExcelProperty("自编号")

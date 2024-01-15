@@ -3,21 +3,24 @@ package cn.iocoder.yudao.module.business.service.driver;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
 import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverPageReqVO;
+import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverRespVO;
 import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverSaveReqVO;
 import cn.iocoder.yudao.module.business.dal.dataobject.driver.DriverDO;
 import cn.iocoder.yudao.module.business.dal.mysql.driver.DriverMapper;
+import cn.iocoder.yudao.module.system.api.dept.DeptApi;
+import cn.iocoder.yudao.module.system.api.dept.dto.DeptRespDTO;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.Resource;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static cn.iocoder.yudao.module.business.enums.ErrorCodeConstants.DRIVER_NOT_EXISTS;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * 司机 Service 实现类
@@ -26,10 +29,11 @@ import static cn.iocoder.yudao.module.business.enums.ErrorCodeConstants.DRIVER_N
  */
 @Service
 @Validated
+@AllArgsConstructor
 public class DriverServiceImpl implements DriverService {
 
-    @Resource
-    private DriverMapper driverMapper;
+    private final DriverMapper driverMapper;
+    private final DeptApi deptApi;
 
     @Override
     public Long createDriver(DriverSaveReqVO createReqVO) {
@@ -69,8 +73,16 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public PageResult<DriverDO> getDriverPage(DriverPageReqVO pageReqVO) {
-        return driverMapper.selectPage(pageReqVO);
+    public PageResult<DriverRespVO> getDriverPage(DriverPageReqVO pageReqVO) {
+        PageResult<DriverDO> page = driverMapper.selectPage(pageReqVO);
+        Set<Long> deptIds = page.getList().stream().map(DriverDO::getDeptId).collect(toSet());
+        Map<Long, DeptRespDTO> deptMap = deptApi.getDeptMap(deptIds);
+        List<DriverRespVO> list = page.getList().stream().map(item -> {
+            DriverRespVO vo = BeanUtils.toBean(item, DriverRespVO.class);
+            vo.setDeptName(deptMap.get(vo.getDeptId()).getName());
+            return vo;
+        }).collect(toList());
+        return new PageResult<>(list, page.getTotal());
     }
 
     @Override
