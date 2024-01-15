@@ -21,7 +21,10 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -79,20 +82,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public VehicleDetailVO getVehicle(Long id) {
         VehicleDO vehicle = vehicleMapper.selectById(id);
-        VehicleDetailVO vo = BeanUtils.toBean(vehicle, VehicleDetailVO.class);
-        DeptRespDTO dept = deptApi.getDept(vehicle.getDeptId());
-        List<DeviceSimpleVO> devices = deviceService.getSimpleList(vehicle.getDeviceIdList(), null);
-        List<DriverDO> drivers = driverService.getDriverList(vehicle.getDriverIdList(), null);
-        Map<Long, String> deviceMap = devices.stream().collect(Collectors.toMap(DeviceSimpleVO::getId, DeviceSimpleVO::getName));
-        Map<Long, String> driverMap = drivers.stream().collect(Collectors.toMap(DriverDO::getId, DriverDO::getName));
-        List<IdNameVO> deviceList = vehicle.getDeviceIdList().stream().map(deviceId -> new IdNameVO(deviceId, deviceMap.get(deviceId))).collect(toList());
-        List<IdNameVO> driverList = vehicle.getDriverIdList().stream().map(driverId -> new IdNameVO(driverId, driverMap.get(driverId))).collect(toList());
-        vo.setDeviceList(deviceList);
-        vo.setDriverList(driverList);
-        if (Objects.nonNull(dept)) {
-            vo.setDeptName(dept.getName());
-        }
-        return vo;
+        return BeanUtils.toBean(vehicle, VehicleDetailVO.class);
     }
 
     @Override
