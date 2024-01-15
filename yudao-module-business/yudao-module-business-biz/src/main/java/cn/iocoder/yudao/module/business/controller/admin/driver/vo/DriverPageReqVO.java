@@ -15,8 +15,8 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class DriverPageReqVO extends PageParam {
 
-    @Schema(description = "所属分公司", example = "12384")
-    private Long companyId;
+    @Schema(description = "部门id", example = "12384")
+    private Long deptId;
 
     @Schema(description = "司机姓名", example = "赵六")
     private String name;

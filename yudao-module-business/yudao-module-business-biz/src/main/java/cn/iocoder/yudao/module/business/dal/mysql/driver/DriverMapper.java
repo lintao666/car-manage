@@ -25,7 +25,7 @@ public interface DriverMapper extends BaseMapperX<DriverDO> {
 
     default PageResult<DriverDO> selectPage(DriverPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<DriverDO>()
-                .eqIfPresent(DriverDO::getCompanyId, reqVO.getCompanyId())
+                .eqIfPresent(DriverDO::getDeptId, reqVO.getDeptId())
                 .likeIfPresent(DriverDO::getName, reqVO.getName())
                 .eqIfPresent(DriverDO::getIdNumber, reqVO.getIdNumber())
                 .eqIfPresent(DriverDO::getCarNumber, reqVO.getCarNumber())

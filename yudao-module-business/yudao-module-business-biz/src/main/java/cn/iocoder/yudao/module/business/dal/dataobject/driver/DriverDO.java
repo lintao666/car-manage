@@ -32,9 +32,9 @@ public class DriverDO extends BaseDO {
     @TableId
     private Long id;
     /**
-     * 所属分公司
+     * 部门id
      */
-    private Long companyId;
+    private Long deptId;
     /**
      * 司机姓名
      */

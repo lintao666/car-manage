@@ -15,9 +15,9 @@ public class DriverSaveReqVO {
     @Schema(description = "编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "31979")
     private Long id;
 
-    @Schema(description = "所属分公司", requiredMode = Schema.RequiredMode.REQUIRED, example = "12384")
-    @NotNull(message = "所属分公司不能为空")
-    private Long companyId;
+    @Schema(description = "部门id", requiredMode = Schema.RequiredMode.REQUIRED, example = "12384")
+    @NotNull(message = "部门id不能为空")
+    private Long deptId;
 
     @Schema(description = "司机姓名", requiredMode = Schema.RequiredMode.REQUIRED, example = "赵六")
     @NotEmpty(message = "司机姓名不能为空")

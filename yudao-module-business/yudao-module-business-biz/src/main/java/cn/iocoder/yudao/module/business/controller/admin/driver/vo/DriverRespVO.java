@@ -19,9 +19,9 @@ public class DriverRespVO {
     @ExcelProperty("编号")
     private Long id;
 
-    @Schema(description = "所属分公司", requiredMode = Schema.RequiredMode.REQUIRED, example = "12384")
-    @ExcelProperty("所属分公司")
-    private Long companyId;
+    @Schema(description = "部门id", requiredMode = Schema.RequiredMode.REQUIRED, example = "12384")
+    @ExcelProperty("部门")
+    private Long deptId;
 
     @Schema(description = "司机姓名", requiredMode = Schema.RequiredMode.REQUIRED, example = "赵六")
     @ExcelProperty("司机姓名")
