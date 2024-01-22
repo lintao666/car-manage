@@ -78,6 +78,14 @@ public class VehicleController {
         return success(pageResult);
     }
 
+    @GetMapping("/list")
+    @Operation(summary = "车辆列表")
+    @PreAuthorize("@ss.hasPermission('business:vehicle:query')")
+    public CommonResult<List<VehicleRespVO>> getVehicleList(@Valid Long deptId) {
+        List<VehicleRespVO> list = vehicleService.getList(deptId);
+        return success(list);
+    }
+
     @GetMapping("/export-excel")
     @Operation(summary = "导出车辆 Excel")
     @PreAuthorize("@ss.hasPermission('business:vehicle:export')")

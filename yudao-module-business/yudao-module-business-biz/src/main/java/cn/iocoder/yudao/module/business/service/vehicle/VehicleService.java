@@ -57,4 +57,6 @@ public interface VehicleService {
      * @return 车辆id
      */
     Optional<Long> getIdByMaskAndCarNumber(String vehicleMask, String carNumber);
+
+    List<VehicleRespVO> getList(Long deptId);
 }

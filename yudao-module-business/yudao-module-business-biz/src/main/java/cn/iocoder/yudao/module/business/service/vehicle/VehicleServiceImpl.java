@@ -15,6 +15,7 @@ import cn.iocoder.yudao.module.business.service.device.DeviceService;
 import cn.iocoder.yudao.module.business.service.driver.DriverService;
 import cn.iocoder.yudao.module.system.api.dept.DeptApi;
 import cn.iocoder.yudao.module.system.api.dept.dto.DeptRespDTO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
@@ -120,6 +121,33 @@ public class VehicleServiceImpl implements VehicleService {
         } else {
             return Optional.of(list.get(0).getId());
         }
+    }
+
+    @Override
+    public List<VehicleRespVO> getList(Long deptId) {
+        LambdaQueryWrapper<VehicleDO> query = Wrappers.<VehicleDO>lambdaQuery().eq(VehicleDO::getDeptId, deptId);
+        List<VehicleDO> list = vehicleMapper.selectList(query);
+        Set<Long> deviceIds = list.stream().map(VehicleDO::getDeviceIdList).flatMap(List::stream)
+                .collect(toSet());
+        Set<Long> driverIds = list.stream().map(VehicleDO::getDriverIdList).flatMap(List::stream)
+                .collect(toSet());
+        Set<Long> deptIds = list.stream().map(VehicleDO::getDeptId).collect(toSet());
+        List<DeviceSimpleVO> devices = deviceService.getSimpleList(deviceIds, null);
+        List<DriverDO> drivers = driverService.getDriverList(driverIds, null);
+
+        Map<Long, String> deviceMap = devices.stream().collect(Collectors.toMap(DeviceSimpleVO::getId, DeviceSimpleVO::getName));
+        Map<Long, String> driverMap = drivers.stream().collect(Collectors.toMap(DriverDO::getId, DriverDO::getName));
+        Map<Long, DeptRespDTO> deptMap = deptApi.getDeptMap(deptIds);
+
+        return list.stream().map(item -> {
+            VehicleRespVO vo = BeanUtils.toBean(item, VehicleRespVO.class);
+            List<IdNameVO> deviceList = item.getDeviceIdList().stream().map(id -> new IdNameVO(id, deviceMap.get(id))).collect(toList());
+            List<IdNameVO> driverList = item.getDriverIdList().stream().map(id -> new IdNameVO(id, driverMap.get(id))).collect(toList());
+            vo.setDeviceList(deviceList);
+            vo.setDriverList(driverList);
+            vo.setDeptName(deptMap.get(vo.getDeptId()).getName());
+            return vo;
+        }).collect(toList());
     }
 
 }
