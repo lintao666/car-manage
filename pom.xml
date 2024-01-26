@@ -24,6 +24,7 @@
 <!--        <module>yudao-module-crm</module>-->
         <module>yudao-module-business</module>
         <module>yudao-module-operation</module>
+        <module>yudao-module-gps</module>
         <!-- 示例项目 -->
 <!--        <module>yudao-example</module>-->
     </modules>
