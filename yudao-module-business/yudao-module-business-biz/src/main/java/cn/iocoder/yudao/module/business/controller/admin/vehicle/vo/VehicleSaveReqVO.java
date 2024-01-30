@@ -54,11 +54,9 @@ public class VehicleSaveReqVO {
     private String engineNumber;
 
     @Schema(description = "设备列表", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "设备列表不能为空")
     private List<Long> deviceIdList;
 
     @Schema(description = "司机列表", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "司机列表不能为空")
     private List<Long> driverIdList;
 
     @Schema(description = "当前状态（非ACC状态）", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -70,7 +68,14 @@ public class VehicleSaveReqVO {
     private List<String> attachment;
 
     @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @NotNull(message = "状态不能为空")
     private Integer status;
+
+    @Schema(description = "保养时间周期(月)", requiredMode = Schema.RequiredMode.REQUIRED, example = "2")
+    @NotNull(message = "保养时间不能为空")
+    private Byte maintainMonths;
+
+    @Schema(description = "保养里程周期(KM)", requiredMode = Schema.RequiredMode.REQUIRED, example = "15000")
+    @NotNull(message = "保养里程周期不能为空")
+    private Integer maintainMileages;
 
 }

@@ -97,4 +97,14 @@ public class VehicleDO extends BaseDO {
      */
     private Integer status;
 
+    /**
+     * 保养时间周期(月)
+     */
+    private Byte maintainMonths;
+    /**
+     * 保养里程周期(KM)
+     */
+    private Integer maintainMileages;
+
+
 }

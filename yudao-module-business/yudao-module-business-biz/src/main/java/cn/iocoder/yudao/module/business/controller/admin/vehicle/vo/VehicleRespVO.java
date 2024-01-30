@@ -85,6 +85,12 @@ public class VehicleRespVO {
     @DictFormat("common_status") // TODO 代码优化：建议设置到对应的 DictTypeConstants 枚举类中
     private Integer status;
 
+    @Schema(description = "保养时间周期(月)")
+    private Byte maintainMonths;
+
+    @Schema(description = "保养里程周期(KM)")
+    private Integer maintainMileages;
+
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("创建时间")
     private LocalDateTime createTime;
