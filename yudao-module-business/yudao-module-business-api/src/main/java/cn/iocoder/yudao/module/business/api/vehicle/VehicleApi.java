@@ -1,5 +1,8 @@
 package cn.iocoder.yudao.module.business.api.vehicle;
 
+import cn.iocoder.yudao.module.business.api.vehicle.dto.VehicleRespDTO;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,4 +20,9 @@ public interface VehicleApi {
      * @return 车辆id
      */
     Optional<Long> getIdByMaskAndCarNumber(String vehicleMask, String carNumber);
+
+    List<VehicleRespDTO> list();
+
+    VehicleRespDTO getByCarNumber(String carNumber);
+    VehicleRespDTO getByMask(String vehicleMask);
 }
