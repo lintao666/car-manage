@@ -45,16 +45,16 @@ public class TrafficViolationSaveReqVO {
     @Schema(description = "违法代码", example = "1")
     private String violationType;
 
-    @Schema(description = "信息来源：1-非现场 2-现场")
+    @Schema(description = "信息来源：字典：traffic_violation_source")
     private Short source;
 
-    @Schema(description = "支付状态：0-否；1-已交款", example = "1")
+    @Schema(description = "支付状态：字典：pay_status", example = "1")
     private Integer payStatus;
 
     @Schema(description = "处理状态：0-未处理1-已处理", example = "1")
     private Integer handleStatus;
 
-    @Schema(description = "决定书类别：1-简易程序  2-一般程序", example = "1")
+    @Schema(description = "决定书类别：字典：decision_type", example = "1")
     private Short decisionType;
 
     @Schema(description = "违法驾驶员处理记录")
