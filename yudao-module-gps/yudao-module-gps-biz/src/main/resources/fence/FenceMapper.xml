@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.iocoder.yudao.module.gps.dal.mysql.fence.FenceMapper">
+  
+  	<select id="queryFenceList" resultType="cn.iocoder.yudao.module.gps.dal.dataobject.fence.FenceDO">
+		select  dept.dept_id,
+				dept.dept_name,
+				f.fence_id,
+				f.fence_name,
+				f.fence_type,
+				f.alarm_in,
+				f.alarm_out,
+				f.use_state,
+				f.tts_in,
+				f.tts_out
+		from fence f
+		inner join sys_dept dept on f.dept_id=dept.dept_id 
+			and dept.dept_code like concat(( select dept_code from sys_dept where dept_id = #{deptId}),  '%')  
+		where 1=1
+		<if test="fenceName != null and fenceName != ''">
+			and fence_name like concat('%',#{fenceName},'%')
+		</if>
+		<if test="useState !=null ">
+			and use_state=#{useState}
+		</if>
+	</select>
+  
+	<select id="queryFenceLimit" resultType="cn.iocoder.yudao.module.gps.dal.dataobject.fence.FenceDO">
+		select  dept.dept_id,
+				dept.dept_name,
+				f.fence_id,
+				f.fence_name,
+				f.fence_type,
+				f.alarm_in,
+				f.alarm_out,
+				f.use_state,
+                f.carLimit,
+                f.tts_in,
+				f.tts_out,
+                count(s.fence_id) AS carCount,
+                ifnull(sum(s.over_speed),0) as over_speed
+		from fence f
+		inner join sys_dept dept on f.dept_id=dept.dept_id 
+			and dept.dept_code like concat(( select dept_code from sys_dept where dept_id = #{deptId}),  '%')  
+        left join fence_status s on f.fence_id = s.fence_id and s.inside = 1
+		where 1 = 1
+		<if test="fenceName != null and fenceName != ''">
+			and fence_name like concat('%',#{fenceName},'%')
+		</if>
+		<if test="useState !=null ">
+			and use_state=#{useState}
+		</if>
+        group by dept.dept_id,
+            dept.dept_name,
+            f.fence_id,
+            f.fence_name,
+            f.fence_type,
+            f.alarm_in,
+            f.alarm_out,
+            f.use_state,
+            f.tts_in,
+			f.tts_out,
+            f.carLimit
+        <if test="limitState == 1">
+        having f.carLimit &lt;= count(s.fence_id)
+        </if>
+        
+	</select>
+	
+	<insert id="insertFenceAndGetId" useGeneratedKeys="true"  keyProperty="fenceId"
+		parameterType="cn.iocoder.yudao.module.gps.dal.dataobject.fence.FenceDO">
+		insert into fence
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deptId != null  and deptId !='' ">
+				dept_id,
+			</if>
+            <if test="fenceName != null and fenceName != ''">
+				fence_name,
+			</if>
+            <if test="fenceType != null">
+				fence_type,
+			</if>
+            <if test="alarmIn != null">
+				alarm_in,
+			</if>
+            <if test="alarmOut != null">
+				alarm_out,
+			</if>
+            <if test="alarmDate != null and alarmDate != ''">
+				alarm_date,
+			</if>
+            <if test="startHour != null and startHour != ''">
+				start_hour,
+			</if>
+            <if test="endHour != null and endHour != ''">
+				end_hour,
+			</if>
+            <if test="startDatespan != null and startDatespan != ''">
+              start_datespan,
+            </if>
+            <if test="endDatespan != null and endDatespan != ''">
+              end_datespan,
+            </if>
+            <if test="alarmContent != null and alarmContent != ''">
+				alarm_content,
+			</if>
+            <if test="fenceShape != null">
+				fence_shape,
+			</if>
+            <if test="fenceArea != null and fenceArea != ''">
+				fence_area,
+			</if>
+            <if test="useState != null">
+				use_state,
+			</if>
+            <if test="carLimit != null">
+				carlimit,
+			</if>
+			<if test="fenceCenter != null">
+				fence_center,
+			</if>
+			<if test="ttsIn != null">
+				tts_in,
+			</if>
+			<if test="ttsOut != null">
+				tts_out,
+			</if>
+			<if test="overSpeed != null">
+				over_speed,
+			</if>
+        </trim>
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+         	<if test="deptId != null and deptId !='' ">
+				#{deptId},
+			</if>
+            <if test="fenceName != null and fenceName != ''">
+				#{fenceName},
+			</if>
+            <if test="fenceType != null">
+				#{fenceType},
+			</if>
+            <if test="alarmIn != null">
+				#{alarmIn},
+			</if>
+            <if test="alarmOut != null">
+				#{alarmOut},
+			</if>
+            <if test="alarmDate != null and alarmDate != ''">
+				#{alarmDate},
+			</if>
+            <if test="startHour != null and startHour != ''">
+				#{startHour},
+			</if>
+            <if test="endHour != null and endHour != ''">
+				#{endHour},
+			</if>
+            <if test="startDatespan != null and startDatespan != ''">
+				#{startDatespan},
+			</if>
+            <if test="endDatespan != null and endDatespan != ''">
+				#{endDatespan},
+			</if>
+            <if test="alarmContent != null and alarmContent != ''">
+				#{alarmContent},
+			</if>
+            <if test="fenceShape != null">
+				#{fenceShape},
+			</if>
+            <if test="fenceArea != null and fenceArea != ''">
+				#{fenceArea},
+			</if>
+            <if test="useState != null">
+				#{useState},
+			</if>
+            <if test="carLimit != null">
+				#{carLimit},
+			</if>
+			<if test="fenceCenter != null">
+				#{fenceCenter},
+			</if>
+			<if test="ttsIn != null">
+				#{ttsIn},
+			</if>
+			<if test="ttsOut != null">
+				#{ttsOut},
+			</if>
+			<if test="overSpeed != null">
+				#{overSpeed},
+			</if>
+         </trim>
+	</insert>
+	
+	<update id="updateFence" parameterType="cn.iocoder.yudao.module.gps.dal.dataobject.fence.FenceDO">
+		update fence set 
+			fence_name=#{fenceName},
+			fence_type=#{fenceType},
+			alarm_in=#{alarmIn},
+			alarm_out=#{alarmOut},
+			alarm_date=#{alarmDate},
+			start_hour=#{startHour},
+			end_hour=#{endHour},
+			alarm_content=#{alarmContent},
+			fence_shape=#{fenceShape},
+			fence_area=#{fenceArea},
+			use_state=#{useState},
+            start_datespan=#{startDatespan},
+            end_datespan=#{endDatespan},
+            carlimit = #{carLimit},
+            fence_center=#{fenceCenter},
+            tts_in=#{ttsIn},
+            tts_out=#{ttsOut},
+            over_speed=#{overSpeed}
+		where fence_id=#{fenceId}
+	</update>
+	
+	<insert id="insertFenceAndDept" parameterType="java.util.List">
+		insert into fence_dept(fence_id,dept_id)
+		values
+		<foreach collection="deptlist" item="item" index="index" separator="," >  
+        	(#{fenceId},#{item})  
+    	</foreach>
+	</insert>
+	
+	<delete id="deleteFenceAndDept">
+		delete from fence_dept where fence_id = #{fenceId}
+	</delete>
+	
+	<insert id="insertFenceExcludeVehicle" parameterType="java.util.List">
+		insert into fence_exclude_vehicle(fence_id,vehicle_id) 
+		values
+		<foreach collection="vehiclelist" item="item" index="index" separator="," >  
+        	(#{fenceId},#{item})  
+    	</foreach>
+	</insert>
+	
+	<delete id="deleteFenceExcludeVehicle">
+		delete from fence_exclude_vehicle where fence_id = #{fenceId}
+	</delete>
+	
+	<select id="queryFenceDetail" resultType="cn.iocoder.yudao.module.gps.dal.dataobject.fence.FenceDO">
+		select  fence_id,
+				dept_id,
+				fence_name,
+				fence_type,
+				alarm_in,
+				alarm_out,
+				alarm_date,
+				start_hour,
+				end_hour,
+				alarm_content,
+				fence_shape,
+				fence_area,
+				use_state,
+                start_datespan,
+                end_datespan,
+                tts_in,
+                tts_out,
+                carLimit,
+                over_speed
+		from fence where fence_id=#{fenceId}
+	</select>
+	
+	<select id="queryFenceDepts" resultType="map">
+		select b.dept_id deptId,b.dept_name deptName from fence_dept a,sys_dept b
+		 where a.dept_id=b.dept_id and fence_id=#{fenceId}
+	</select>
+	
+	<select id="queryFenceExcludeVehicle" resultType="map">
+		select b.vehicle_id vehicleId,b.vehicle_code vehicleCode from fence_exclude_vehicle a,vehicle b
+		 where a.vehicle_id=b.vehicle_id and fence_id=#{fenceId}
+	</select>
+	
+	<delete id="deleteFence">
+		delete from fence where fence_id = #{fenceId}
+	</delete>
+	
+	<select id="queryInsideFenceVehicle" resultType="hashmap">
+		select 
+			dept.zwjc deptName,ifnull(dept.dh,'') deptPhone,
+			v.vehicle_id vehicleId,v.vehicle_code vehicleCode,v.vehicle_mask vehicleMask,
+			ifnull(d.driver_name,'') driverName,ifnull(d.self_num,'') selfNum,ifnull(d.driver_num,'') driverNum,ifnull(d.phone,'') phone,
+			
+			UNIX_TIMESTAMP(ifnull(fs.obdtime,now())) insideUnixTime,
+			ifnull(date_format(fs.obdtime,'%Y-%m-%d %H:%i:%s'),'') insideTime,
+			ifnull(fs.over_speed,0) overSpeed,
+			vgs.longitude,vgs.latitude,vgs.direction,date_format(vgs.machine_time,'%Y-%m-%d %H:%i:%s') machineTime,
+			vgs.acc,vgs.online,vgs.obd_speed obdSpeed,
+			ifnull(vns.is_empty,0) orderState
+			from fence_status fs 
+			inner join vehicle v on fs.vehicle_id=v.vehicle_id 
+			inner join vehicle_gps_state vgs on fs.vehicle_id=vgs.vehicle_id
+			inner join  t_per_department dept on v.dept_id=dept.bmdm
+        		and dept.path like concat((select path from t_per_department where bmdm = #{deptId}),'%')
+        	left join vehicle_now_status vns on fs.vehicle_id=vns.vehicle_id
+			left join driver d on vns.driver_id=d.driver_id
+			
+			where fs.fence_id=#{fenceId} and fs.inside=1 order by v.vehicle_mask asc
+	</select>
+	
+</mapper>
