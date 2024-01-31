@@ -1,6 +1,7 @@
 package cn.iocoder.yudao.module.business.api.vehicle;
 
 import cn.iocoder.yudao.module.business.api.vehicle.dto.VehicleRespDTO;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ public interface VehicleApi {
      */
     Optional<Long> getIdByMaskAndCarNumber(String vehicleMask, String carNumber);
 
+    @Cacheable(value = "vehicles")
     List<VehicleRespDTO> list();
 
     VehicleRespDTO getByCarNumber(String carNumber);
