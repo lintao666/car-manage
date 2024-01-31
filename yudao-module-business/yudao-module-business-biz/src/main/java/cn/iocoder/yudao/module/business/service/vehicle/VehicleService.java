@@ -2,8 +2,11 @@ package cn.iocoder.yudao.module.business.service.vehicle;
 
 import java.util.*;
 import javax.validation.*;
+
+import cn.iocoder.yudao.module.business.api.vehicle.dto.VehicleRespDTO;
 import cn.iocoder.yudao.module.business.controller.admin.vehicle.vo.*;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.module.business.dal.dataobject.vehicle.VehicleDO;
 
 /**
  * 车辆 Service 接口
@@ -58,5 +61,10 @@ public interface VehicleService {
      */
     Optional<Long> getIdByMaskAndCarNumber(String vehicleMask, String carNumber);
 
+    VehicleDO getByMask(String vehicleMask);
+    VehicleDO getByCarNumber(String carNumber);
+
     List<VehicleRespVO> getList(Long deptId);
+
+    List<VehicleRespDTO> list();
 }

@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.*;
+import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -69,6 +71,7 @@ public class VehicleDO extends BaseDO {
      * 发动机号
      */
     private String engineNumber;
+
     /**
      * 设备列表
      */
@@ -107,4 +110,11 @@ public class VehicleDO extends BaseDO {
     private Integer maintainMileages;
 
 
+    public List<Long> getDeviceIdList() {
+        return CollectionUtils.isEmpty(deviceIdList) ? Collections.emptyList() : deviceIdList;
+    }
+
+    public List<Long> getDriverIdList() {
+        return CollectionUtils.isEmpty(driverIdList) ? Collections.emptyList() : driverIdList;
+    }
 }

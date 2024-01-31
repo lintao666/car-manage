@@ -14,7 +14,6 @@ public class VehicleSaveReqVO {
     private Long id;
 
     @Schema(description = "所属分公司", requiredMode = Schema.RequiredMode.REQUIRED, example = "25787")
-    @NotNull(message = "所属分公司不能为空")
     private Long companyId;
 
     @Schema(description = "部门id", requiredMode = Schema.RequiredMode.REQUIRED, example = "114")

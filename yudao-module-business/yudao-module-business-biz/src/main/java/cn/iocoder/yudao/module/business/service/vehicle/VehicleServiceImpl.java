@@ -3,6 +3,7 @@ package cn.iocoder.yudao.module.business.service.vehicle;
 import cn.iocoder.yudao.framework.common.pojo.IdNameVO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
+import cn.iocoder.yudao.module.business.api.vehicle.dto.VehicleRespDTO;
 import cn.iocoder.yudao.module.business.controller.admin.device.vo.DeviceSimpleVO;
 import cn.iocoder.yudao.module.business.controller.admin.vehicle.vo.VehicleDetailVO;
 import cn.iocoder.yudao.module.business.controller.admin.vehicle.vo.VehiclePageReqVO;
@@ -22,10 +23,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -107,7 +105,10 @@ public class VehicleServiceImpl implements VehicleService {
             List<IdNameVO> driverList = item.getDriverIdList().stream().map(id -> new IdNameVO(id, driverMap.get(id))).collect(toList());
             vo.setDeviceList(deviceList);
             vo.setDriverList(driverList);
-            vo.setDeptName(deptMap.get(vo.getDeptId()).getName());
+            DeptRespDTO dept = deptMap.get(vo.getDeptId());
+            if (Objects.nonNull(dept)) {
+                vo.setDeptName(dept.getName());
+            }
             return vo;
         }).collect(toList());
         return new PageResult<>(list, page.getTotal());
@@ -124,12 +125,22 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    public VehicleDO getByMask(String vehicleMask) {
+        return vehicleMapper.selectOne(VehicleDO::getVehicleMask, vehicleMask);
+    }
+
+    @Override
+    public VehicleDO getByCarNumber(String carNumber) {
+        return vehicleMapper.selectOne(VehicleDO::getCarNumber, carNumber);
+    }
+
+    @Override
     public List<VehicleRespVO> getList(Long deptId) {
-        LambdaQueryWrapper<VehicleDO> query = Wrappers.<VehicleDO>lambdaQuery().eq(VehicleDO::getDeptId, deptId);
+        LambdaQueryWrapper<VehicleDO> query = Wrappers.<VehicleDO>lambdaQuery().eq(Objects.nonNull(deptId), VehicleDO::getDeptId, deptId);
         List<VehicleDO> list = vehicleMapper.selectList(query);
-        Set<Long> deviceIds = list.stream().map(VehicleDO::getDeviceIdList).flatMap(List::stream)
+        Set<Long> deviceIds = list.stream().filter(item -> CollectionUtils.isNotEmpty(item.getDeviceIdList())).map(VehicleDO::getDeviceIdList).flatMap(List::stream)
                 .collect(toSet());
-        Set<Long> driverIds = list.stream().map(VehicleDO::getDriverIdList).flatMap(List::stream)
+        Set<Long> driverIds = list.stream().filter(item -> CollectionUtils.isNotEmpty(item.getDeviceIdList())).map(VehicleDO::getDriverIdList).flatMap(List::stream)
                 .collect(toSet());
         Set<Long> deptIds = list.stream().map(VehicleDO::getDeptId).collect(toSet());
         List<DeviceSimpleVO> devices = deviceService.getSimpleList(deviceIds, null);
@@ -145,9 +156,18 @@ public class VehicleServiceImpl implements VehicleService {
             List<IdNameVO> driverList = item.getDriverIdList().stream().map(id -> new IdNameVO(id, driverMap.get(id))).collect(toList());
             vo.setDeviceList(deviceList);
             vo.setDriverList(driverList);
-            vo.setDeptName(deptMap.get(vo.getDeptId()).getName());
+            DeptRespDTO dept = deptMap.get(vo.getDeptId());
+            if (Objects.nonNull(dept)) {
+                vo.setDeptName(dept.getName());
+            }
             return vo;
         }).collect(toList());
+    }
+
+    @Override
+    public List<VehicleRespDTO> list() {
+        List<VehicleDO> list = vehicleMapper.selectList();
+        return BeanUtils.toBean(list, VehicleRespDTO.class);
     }
 
 }
