@@ -1,6 +1,7 @@
 package cn.iocoder.yudao.module.gps.dal.dataobject.position;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -9,21 +10,26 @@ import java.time.LocalDateTime;
 @Data
 @TableName(value = "vehicle_gps_state", autoResultMap = true)
 public class VehiclePositionStatusDO {
-    private Long vehicleId; // 车辆ID
-    private String deptId; // 部门Id
-
+    @Schema(description = "车辆ID")
+    private Long vehicleId;
+    @Schema(description = "部门Id")
+    private String deptId;
     private String devcode;
-
-    private BigDecimal longitude; //
-    private BigDecimal latitude; //
-    private Integer acc; // 点熄火状态(1点火，0熄火)
-    private Integer online; // 是否在线(1在线，0离线)
-
-//    private Long lastTime;// 最后点时间
-    private LocalDateTime machineTime; // 上报时间
-    private Integer obdSpeed; // obd速度
-//    private Integer state;// 状态
-    private Integer direction; // 方向
+    @Schema(description = "经度")
+    private BigDecimal longitude;
+    @Schema(description = "纬度")
+    private BigDecimal latitude;
+    @Schema(description = "点熄火状态(1点火，0熄火)")
+    private Integer acc;
+    @Schema(description = "是否在线(1在线，0离线)")
+    private Integer online;
+    @Schema(description = "上报时间")
+    private LocalDateTime machineTime;
+    @Schema(description = "obd速度")
+    private Integer obdSpeed;
+    //    private Integer state;// 状态
+    @Schema(description = "方向")
+    private Integer direction;
 
 
 }

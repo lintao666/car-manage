@@ -1,6 +1,7 @@
-package cn.iocoder.yudao.module.gps.controller.admin.device;
+package cn.iocoder.yudao.module.gps.controller.admin.position;
 
-import cn.iocoder.yudao.module.gps.controller.admin.device.vo.SummaryVO;
+import cn.iocoder.yudao.module.gps.controller.admin.position.vo.SummaryVO;
+import cn.iocoder.yudao.module.gps.controller.admin.position.vo.VehiclePositionVO;
 import cn.iocoder.yudao.module.gps.dal.dataobject.position.VehiclePositionStatusDO;
 import cn.iocoder.yudao.module.gps.service.position.PositionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Tag(name = "管理后台 - GPS-车辆定位展示")
 @RestController
-@RequestMapping("gps/vehicle/position")
+@RequestMapping("gps/vehicle")
 @Validated
 public class PositionController {
 
@@ -24,13 +25,23 @@ public class PositionController {
 
     /**
      * 车辆定位展示
-     * 此页面有
+     * 位置，方向，车牌号，车辆品牌，OBD设备号，司机姓名，手机号，设备的经纬度，设备通过地图接口解析出的具体地址，当前车速，当前方向，当前状态
      */
-    @GetMapping
-    @Operation(summary = "查询所有车辆定位信息()")
+    @GetMapping("position2")
+    @Operation(summary = "查询所有车辆定位信息")
     public List<VehiclePositionStatusDO> vehiclePositionList(Long deptId, String carNumber, String vehicleMask) {
 
         return positionService.getList();
+    }
+
+    /**
+     * 车辆定位展示
+     * 位置，方向，车牌号，车辆品牌，OBD设备号，司机姓名，手机号，设备的经纬度，设备通过地图接口解析出的具体地址，当前车速，当前方向，当前状态
+     */
+    @GetMapping("position")
+    @Operation(summary = "查询所有车辆定位信息")
+    public List<VehiclePositionVO> vehiclePositions(Long deptId, String carNumber, String vehicleMask) {
+        return positionService.list(carNumber, vehicleMask);
     }
 
     /**
