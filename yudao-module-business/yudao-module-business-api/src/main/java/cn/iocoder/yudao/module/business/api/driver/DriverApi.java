@@ -1,5 +1,8 @@
 package cn.iocoder.yudao.module.business.api.driver;
 
+import cn.iocoder.yudao.module.business.api.driver.dto.DriverRespDTO;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,4 +20,5 @@ public interface DriverApi {
      * @return 司机id
      */
     Optional<Long> getIdByVehicleIdAndName(String vehicleId, String name);
+    List<DriverRespDTO> getAll();
 }
