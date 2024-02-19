@@ -65,7 +65,7 @@ public class DriverController {
 
     @GetMapping("/get")
     @Operation(summary = "获得司机")
-    @Parameter(name = "id", description = "编号", required = true, example = "1024")
+    @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('business:driver:query')")
     public CommonResult<DriverRespVO> getDriver(@RequestParam("id") Long id) {
         DriverDO driver = driverService.getDriver(id);
