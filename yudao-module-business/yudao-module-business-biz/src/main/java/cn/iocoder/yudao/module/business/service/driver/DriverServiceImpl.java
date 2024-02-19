@@ -1,14 +1,17 @@
 package cn.iocoder.yudao.module.business.service.driver;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
 import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverPageReqVO;
 import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverRespVO;
 import cn.iocoder.yudao.module.business.controller.admin.driver.vo.DriverSaveReqVO;
 import cn.iocoder.yudao.module.business.dal.dataobject.driver.DriverDO;
+import cn.iocoder.yudao.module.business.dal.dataobject.vehicle.VehicleDO;
 import cn.iocoder.yudao.module.business.dal.mysql.driver.DriverMapper;
 import cn.iocoder.yudao.module.system.api.dept.DeptApi;
 import cn.iocoder.yudao.module.system.api.dept.dto.DeptRespDTO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
@@ -98,6 +101,13 @@ public class DriverServiceImpl implements DriverService {
         } else {
             return Optional.of(list.get(0).getId());
         }
+    }
+
+    @Override
+    public List<DriverRespVO> getList(Long deptId) {
+        LambdaQueryWrapper<DriverDO> query = Wrappers.<DriverDO>lambdaQuery().eq(Objects.nonNull(deptId), DriverDO::getDeptId, deptId);
+        List<DriverDO> list = driverMapper.selectList(query);
+        return BeanUtil.copyToList(list, DriverRespVO.class);
     }
 
 }

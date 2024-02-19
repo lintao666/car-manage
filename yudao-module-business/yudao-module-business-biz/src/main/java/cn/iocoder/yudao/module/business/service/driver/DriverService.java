@@ -62,4 +62,6 @@ public interface DriverService {
 
 
     Optional<Long> getIdByVehicleIdAndName(String vehicleId, String name);
+
+    List<DriverRespVO> getList(Long deptId);
 }

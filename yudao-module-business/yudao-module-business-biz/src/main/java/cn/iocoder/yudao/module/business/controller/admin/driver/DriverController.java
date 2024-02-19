@@ -80,6 +80,13 @@ public class DriverController {
         return success(pageResult);
     }
 
+    @GetMapping("/list")
+    @Operation(summary = "司机列表")
+    @PreAuthorize("@ss.hasPermission('business:driver:query')")
+    public CommonResult<List<DriverRespVO>> getVehicleList(@Valid Long deptId) {
+        List<DriverRespVO> list = driverService.getList(deptId);
+        return success(list);
+    }
     @GetMapping("/export-excel")
     @Operation(summary = "导出司机 Excel")
     @PreAuthorize("@ss.hasPermission('business:driver:export')")
