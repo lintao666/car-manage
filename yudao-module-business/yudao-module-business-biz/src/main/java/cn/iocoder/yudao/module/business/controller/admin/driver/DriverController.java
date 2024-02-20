@@ -80,7 +80,7 @@ public class DriverController {
         return success(pageResult);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/all")
     @Operation(summary = "司机列表")
     @PreAuthorize("@ss.hasPermission('business:driver:query')")
     public CommonResult<List<DriverRespVO>> getDriverList(@RequestParam(required = false) Long deptId) {
