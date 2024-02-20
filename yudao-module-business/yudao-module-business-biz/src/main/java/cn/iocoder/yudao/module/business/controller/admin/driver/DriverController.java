@@ -83,7 +83,7 @@ public class DriverController {
     @GetMapping("/list")
     @Operation(summary = "司机列表")
     @PreAuthorize("@ss.hasPermission('business:driver:query')")
-    public CommonResult<List<DriverRespVO>> getDriverList(Long deptId) {
+    public CommonResult<List<DriverRespVO>> getDriverList(@RequestParam(required = false) Long deptId) {
         List<DriverRespVO> list = driverService.getList(deptId);
         return success(list);
     }
